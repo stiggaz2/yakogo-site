@@ -1,0 +1,43 @@
+# ==========================================
+# REG.RU Production Configuration
+# ==========================================
+
+AddDefaultCharset UTF-8
+
+RewriteEngine On
+
+# 1. Force HTTPS (with Nginx reverse-proxy support on Reg.ru)
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 2. Redirect /index.html to / (Clean root URL)
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html[?\ ] [NC]
+RewriteRule ^index\.html$ / [R=301,L]
+
+# 3. Clean URLs for cases (Allow /cases/soundpower without .html extension)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# 3. Custom 404 error page
+ErrorDocument 404 /404.html
+
+# 4. GZIP Compression for maximum performance
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+# 5. Browser Caching
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType application/pdf "access plus 1 month"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+</IfModule>

@@ -1,0 +1,2302 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soundpower — Стоковая музыкальная библиотека | Кейс Егора Якоби</title>
+  <meta name="description" content="Кейс продуктового дизайнера Егора Якоби: редизайн интернет-магазина музыки Soundpower. 13 гипотез в CustDev, оптимизация взаимодействия, микроанимации ховеров и удобный плеер.">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#08090d">
+
+  <!-- Open Graph / Telegram / LinkedIn / VK -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://yakogo.ru/cases/soundpower.html">
+  <meta property="og:site_name" content="Портфолио Егора Якоби">
+  <meta property="og:title" content="Soundpower — Редизайн музыкального стока | Кейс Егора Якоби">
+  <meta property="og:description" content="Редизайн интернет-магазина музыки Soundpower: 13 гипотез в CustDev, оптимизация сценариев поиска и покупки, микроанимации и кастомный аудиоплеер.">
+  <meta property="og:image" content="https://yakogo.ru/assets/soundpower/og-preview.png">
+  <meta property="og:image:secure_url" content="https://yakogo.ru/assets/soundpower/og-preview.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Soundpower — Редизайн музыкального стока">
+  <meta property="og:locale" content="ru_RU">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Soundpower — Редизайн музыкального стока | Кейс Егора Якоби">
+  <meta name="twitter:description" content="Редизайн интернет-магазина музыки Soundpower: 13 гипотез в CustDev, микроанимации и кастомный аудиоплеер.">
+  <meta name="twitter:image" content="https://yakogo.ru/assets/soundpower/og-preview.png">
+
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+      m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+      k=e.createElement(t),a=e.getElementsByTagName(0)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113725984', 'ym');
+
+    ym(113725984, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer"});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/113725984" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <link rel="preload" href="/assets/fonts/Bounded_Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/Bounded_ExtraLight.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>try { sessionStorage.setItem('site_nav_active', '1'); } catch(e) {}</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['"Bounded"', 'system-ui', 'sans-serif'],
+            sans: ['"Onest"', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            surface: {
+              light: '#f8fafc',
+              dark: '#08090d',
+              cardDark: '#10121a',
+              cardDarkHover: '#151824',
+              borderDark: '#1c2030',
+            },
+            accent: {
+              purple: '#a855f7',
+              blue: '#3b82f6',
+              emerald: '#10b981',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @font-face {
+      font-family: 'Bounded';
+      src: url('/assets/fonts/Bounded_Regular.woff2') format('woff2');
+      font-weight: 400 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Bounded';
+      src: url('/assets/fonts/Bounded_ExtraLight.woff2') format('woff2');
+      font-weight: 200 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    h1, h2, h3, .font-heading {
+      font-family: 'Bounded', system-ui, sans-serif;
+      letter-spacing: -0.015em;
+    }
+    html, body, button, a, [role="button"], .cursor-pointer {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M1 1L16.5 11.5L9 12.5L5.5 20L1 1Z' fill='%23000000' stroke='%23ffffff' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 1 1, auto !important;
+    }
+    #sliderScrollArea::-webkit-scrollbar {
+      width: 7px;
+    }
+    #sliderScrollArea::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    #sliderScrollArea::-webkit-scrollbar-thumb {
+      background: rgba(168, 85, 247, 0.4);
+      border-radius: 4px;
+    }
+    #sliderScrollArea::-webkit-scrollbar-thumb:hover {
+      background: rgba(168, 85, 247, 0.7);
+    }
+
+    /* Hide scrollbars inside mobile phone mockups so width is 100% and aligned */
+    #mobileHeroSliderScrollArea,
+    #mobileSliderScrollArea,
+    .no-scrollbar {
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
+    #mobileHeroSliderScrollArea::-webkit-scrollbar,
+    #mobileSliderScrollArea::-webkit-scrollbar,
+    .no-scrollbar::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+
+    .cursor-zoom-in, .cursor-zoom-in * {
+      cursor: zoom-in !important;
+    }
+
+    /* Sticky side nav dots */
+    .rail-dot.active {
+      background-color: #a855f7;
+      box-shadow: 0 0 10px #a855f7;
+    }
+
+    /* Buttery Smooth Page Entrance Animations (inspired by isukharkov.ru/rwb) */
+    @keyframes pageEnterFadeUp {
+      from {
+        opacity: 0.001;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes headerEnterFadeDown {
+      from {
+        opacity: 0.001;
+        transform: translateY(-8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    header.sticky {
+      animation: headerEnterFadeDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .hero-stagger-1 {
+      animation: pageEnterFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.04s both;
+    }
+    .hero-stagger-2 {
+      animation: pageEnterFadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+    }
+    .hero-stagger-3 {
+      animation: pageEnterFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+    }
+    .hero-stagger-4 {
+      animation: pageEnterFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
+    }
+
+    /* Scroll-triggered Reveal for subsequent sections */
+    .case-reveal {
+      opacity: 0.001;
+      transform: translateY(22px);
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .case-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      header.sticky, .hero-stagger-1, .hero-stagger-2, .hero-stagger-3, .hero-stagger-4, .case-reveal {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* Flow frame container fullscreen mode */
+    #flowFrameContainer:fullscreen {
+      border-radius: 0 !important;
+      border: none !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: 100vw !important;
+      max-height: 100vh !important;
+      background: #1e1e1e !important;
+    }
+    #flowFrameContainer:fullscreen #flowFrameInner {
+      height: 100vh !important;
+      max-height: 100vh !important;
+    }
+    #flowFrameContainer:-webkit-full-screen {
+      border-radius: 0 !important;
+      border: none !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: 100vw !important;
+      max-height: 100vh !important;
+      background: #1e1e1e !important;
+    }
+    #flowFrameContainer:-webkit-full-screen #flowFrameInner {
+      height: 100vh !important;
+      max-height: 100vh !important;
+    }
+  </style>
+</head>
+<body id="top" class="bg-surface-light dark:bg-surface-dark text-slate-900 dark:text-slate-100 antialiased min-h-screen transition-colors duration-200 selection:bg-purple-500 selection:text-white">
+
+  <!-- TOP BAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-surface-dark/85 border-b border-slate-200/80 dark:border-surface-borderDark/80">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="/#cases" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        Все кейсы
+      </a>
+
+      <div class="text-[13px] sm:text-[15px] font-sans text-slate-500 dark:text-slate-400 flex items-center gap-2 select-none">
+        <a href="https://t.me/dakingo" target="_blank" class="hover:text-slate-900 dark:hover:text-white transition-colors">telegram</a>
+        <span class="text-slate-400 dark:text-slate-600 font-light">/</span>
+        <a href="https://max.ru/u/f9LHodD0cOLSijFJIunj_Q_e7ZLL4fT3aKAupDufMfPKdVHqm0YZG5NdNfo" target="_blank" class="hover:text-slate-900 dark:hover:text-white transition-colors">max</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- STICKY RAIL NAV (DESKTOP) -->
+  <aside class="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-end gap-3 text-xs font-mono text-slate-400 pointer-events-auto">
+    <a href="#intro" class="rail-item hover:text-purple-400 flex items-center gap-2 transition-colors">
+      <span>интро</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+    <a href="#custdev" class="rail-item hover:text-purple-400 flex items-center gap-2 transition-colors">
+      <span>исследование (custdev)</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+    <a href="#jobstories" class="rail-item hover:text-purple-400 flex items-center gap-2 transition-colors">
+      <span>сценарии & user flow</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+    <a href="#interaction" class="rail-item hover:text-purple-400 flex items-center gap-2 transition-colors">
+      <span>interaction cost</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+    <a href="#hover-demo" class="rail-item hover:text-purple-400 flex items-center gap-2 transition-colors">
+      <span>анимация карточек</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+    <a href="#player" class="rail-item hover:text-purple-400 flex items-center gap-2 transition-colors">
+      <span>плеер и&nbsp;waveform</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+    <a href="#design-system" class="rail-item hover:text-purple-400 flex items-center gap-2 transition-colors">
+      <span>дизайн-система</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+    <a href="#forecast" class="rail-item hover:text-purple-400 flex items-center gap-2 transition-colors">
+      <span>прогноз показателей</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+  </aside>
+
+  <!-- MAIN CASE CONTENT -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+    
+    <!-- HEADER: TITLE & 4 BULLETS SUMMARY (EXECUTIVE SUMMARY) -->
+    <section id="intro" class="mb-[120px]">
+      <div class="hero-stagger-1">
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+          <span class="px-2.5 py-1 rounded-[4px] text-xs font-sans font-bold text-white bg-purple-600 shadow-sm">Media E-commerce</span>
+          <span class="px-2.5 py-1 rounded-[4px] text-xs font-sans font-bold text-white bg-emerald-600 shadow-sm">CustDev Verified</span>
+          <span class="px-2.5 py-1 rounded-[4px] text-xs font-sans font-bold text-white bg-orange-600 shadow-sm">UX / UI Redesign</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.18] mb-4">
+          Soundpower
+        </h1>
+
+        <p class="text-xl text-slate-500 dark:text-slate-400 font-medium mb-8">
+          Редизайн интернет-магазина музыки: сделать сервис продающим, стильным и&nbsp;сопоставимым с&nbsp;современными трендами
+        </p>
+      </div>
+
+      <!-- 4 BULLETS LIKE SASHA'S REFS -->
+      <ul class="hero-stagger-2 space-y-3 p-6 sm:p-7 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark mb-8">
+        <li class="flex items-start gap-3 text-sm sm:text-[15px] leading-relaxed text-slate-700 dark:text-slate-300">
+          <span class="mt-2 w-2 h-2 rounded-full bg-purple-500 shrink-0"></span>
+          <span><strong>13 гипотез проверил в&nbsp;CustDev с&nbsp;респондентом из&nbsp;медиа-сферы:</strong> 9 подтвердились, 4 опровергнуты&nbsp;— решения строились на&nbsp;реальных болях интерфейса, а&nbsp;не&nbsp;на&nbsp;интуиции.</span>
+        </li>
+        <li class="flex items-start gap-3 text-sm sm:text-[15px] leading-relaxed text-slate-700 dark:text-slate-300">
+          <span class="mt-2 w-2 h-2 rounded-full bg-purple-500 shrink-0"></span>
+          <span><strong>Сократил путь к&nbsp;покупке до&nbsp;0 кликов:</strong> убрал спрятанную цену из&nbsp;аккордеона&nbsp;— стоимость видна сразу у&nbsp;каждого трека, внедрена мультифильтрация сразу по&nbsp;нескольким жанрам.</span>
+        </li>
+        <li class="flex items-start gap-3 text-sm sm:text-[15px] leading-relaxed text-slate-700 dark:text-slate-300">
+          <span class="mt-2 w-2 h-2 rounded-full bg-purple-500 shrink-0"></span>
+          <span><strong>Сделал удобный плеер прямо в&nbsp;строке каталога:</strong> трек можно сразу послушать и&nbsp;перемотать по&nbsp;таймлайну, увидеть жанр, цену и&nbsp;в&nbsp;один клик скачать превью или&nbsp;добавить в&nbsp;избранное.</span>
+        </li>
+        <li class="flex items-start gap-3 text-sm sm:text-[15px] leading-relaxed text-slate-700 dark:text-slate-300">
+          <span class="mt-2 w-2 h-2 rounded-full bg-purple-500 shrink-0"></span>
+          <span><strong>Глубоко проработал визуал тематических плейлистов:</strong> детальная работа над&nbsp;карточками жанров и&nbsp;настроений&nbsp;— уникальная колористика и&nbsp;образы под&nbsp;каждый стиль сделали витрину современной и&nbsp;вовлекающей.</span>
+        </li>
+      </ul>
+
+      <!-- META STRIP -->
+      <div class="hero-stagger-3 flex items-center justify-between gap-4 p-5 rounded-xl bg-slate-100/70 dark:bg-surface-cardDark/50 border border-slate-200 dark:border-surface-borderDark text-xs font-mono mb-8 overflow-x-auto">
+        <div class="shrink-0">
+          <div class="text-slate-500">Год</div>
+          <div class="text-slate-900 dark:text-white font-bold text-sm mt-0.5">2025–2026</div>
+        </div>
+        <div class="shrink-0">
+          <div class="text-slate-500">Роль</div>
+          <div class="text-slate-900 dark:text-white font-bold text-sm mt-0.5">Продуктовый дизайнер</div>
+        </div>
+        <div class="shrink-0">
+          <div class="text-slate-500">Команда</div>
+          <div class="text-slate-900 dark:text-white font-bold text-sm mt-0.5">Соло</div>
+        </div>
+        <div class="shrink-0">
+          <div class="text-slate-500">Исходник</div>
+          <a href="https://www.figma.com/design/S6Nl03gtqxBmZMAMrJDMRK/%D0%94%D0%BB%D1%8F-%D0%BF%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE?node-id=193-5549" target="_blank" class="text-purple-400 hover:underline font-bold text-sm mt-0.5 inline-flex items-center gap-1">
+            Figma Файл ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- BEFORE / AFTER COMPARISON SLIDER (WITH DESKTOP & MOBILE TABS) -->
+      <div id="hero-comparison" class="hero-stagger-4 space-y-4">
+        
+        <!-- VIEWPORT SWITCHER TABS -->
+        <div class="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-surface-cardDark rounded-xl border border-slate-200 dark:border-surface-borderDark w-fit">
+          <button type="button" onclick="switchHeroMode('desktop')" id="heroModeBtn-desktop" class="p-2 sm:p-2.5 rounded-lg transition-all flex items-center justify-center bg-purple-600 text-white shadow-md shadow-purple-600/30" title="Десктоп">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke-width="2"></rect><line x1="8" y1="21" x2="16" y2="21" stroke-width="2"></line><line x1="12" y1="17" x2="12" y2="21" stroke-width="2"></line></svg>
+          </button>
+          <button type="button" onclick="switchHeroMode('mobile')" id="heroModeBtn-mobile" class="p-2 sm:p-2.5 rounded-lg transition-all flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/50" title="Мобильная">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3" ry="3" stroke-width="2"></rect><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="2.5" stroke-linecap="round"></line></svg>
+          </button>
+        </div>
+
+        <!-- 1. DESKTOP HERO SLIDER CONTAINER -->
+        <div id="heroContainerDesktop" class="space-y-3">
+          <div id="beforeAfterSlider" class="relative select-none rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 dark:border-surface-borderDark bg-[#090a0f] shadow-2xl h-[620px] sm:h-[760px] md:h-[820px] group" style="--pos: 90%; --sb-width: 7px;">
+            
+            <!-- ВЕРТИКАЛЬНО СКРОЛЛЯЩИЙСЯ КОНТЕЙНЕР (СИНХРОННЫЙ СКРОЛЛ ОБЕИХ ВЕРСИЙ) -->
+            <div id="sliderScrollArea" class="w-full h-full overflow-y-auto overflow-x-hidden relative scroll-smooth">
+              <div id="scrollContent" class="relative w-full">
+                <!-- СТАЛО (НОВЫЙ ДИЗАЙН — ПОЛНАЯ СТРАНИЦА) -->
+                <img id="newSiteImg" src="../assets/soundpower/main-desktop.webp" alt="Sound Power — Новый дизайн" class="w-full h-auto block select-none pointer-events-none" loading="eager">
+                
+                <!-- БЫЛО (СТАРЫЙ САЙТ SOUND POWER — ПОЛНАЯ СТРАНИЦА ДО ФУТЕРА) -->
+                <div id="oldSiteClipWrapper" class="absolute inset-0 w-full pointer-events-none overflow-hidden" style="clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0);">
+                  <img id="oldSiteImg" src="../assets/soundpower/old-site-full.png" alt="Sound Power — Исходная версия сайта" class="w-full h-auto block select-none pointer-events-none will-change-transform" loading="eager">
+                </div>
+              </div>
+            </div>
+
+            <!-- БЕЙДЖИ ВЕРСИЙ -->
+            <div class="absolute inset-0 pointer-events-none z-20 overflow-hidden" style="clip-path: inset(0 0 0 var(--pos, 50%));">
+              <div class="absolute top-4 right-4 px-3 py-1.5 rounded-full text-xs font-mono font-bold bg-purple-600/90 text-white shadow-lg backdrop-blur-md border border-purple-400/30">
+                Стало
+              </div>
+            </div>
+            <div class="absolute inset-0 pointer-events-none z-20 overflow-hidden" style="clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0);">
+              <div class="absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-mono font-bold bg-slate-900/90 text-slate-200 border border-slate-700 shadow-lg backdrop-blur-md">
+                До
+              </div>
+            </div>
+
+            <!-- РАЗДЕЛИТЕЛЬНАЯ ЛИНИЯ И РУЧКА ПОЛЗУНКА -->
+            <div id="sliderDividerTrack" class="absolute inset-y-0 left-0 pointer-events-none z-20" style="right: var(--sb-width, 7px);">
+              <div class="absolute top-0 bottom-0 pointer-events-none" style="left: var(--pos, 50%); transform: translateX(-50%);">
+                <div class="w-0.5 h-full bg-white shadow-[0_0_12px_rgba(0,0,0,0.8)]"></div>
+                <div id="sliderHandle" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white text-slate-900 shadow-2xl border-2 border-purple-500 flex items-center justify-center cursor-ew-resize pointer-events-auto hover:scale-110 active:scale-95 transition-transform touch-none">
+                  <svg class="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                    <polyline points="9 18 3 12 9 6" transform="translate(18, 24) rotate(180)"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="flex items-center justify-between text-xs text-slate-500 px-2 font-mono">
+            <span>// Тяните ползунок влево-вправо</span>
+            <span class="text-purple-400 font-bold">Сравнение версий</span>
+          </div>
+        </div>
+
+        <!-- 2. MOBILE HERO SLIDER CONTAINER -->
+        <div id="heroContainerMobile" class="hidden">
+          <div class="flex justify-center py-2 sm:py-4">
+            <!-- SMARTPHONE MOCKUP FRAME -->
+            <div class="w-full max-w-[360px] sm:max-w-[390px] shrink-0 bg-[#090b10] p-3 sm:p-3.5 rounded-[44px] border-4 border-slate-700/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] relative ring-1 ring-white/10">
+              <!-- DYNAMIC ISLAND / SPEAKER -->
+              <div class="w-28 h-4.5 bg-black rounded-full mx-auto mb-2 flex items-center justify-between px-3">
+                <span class="w-2 h-2 rounded-full bg-slate-900 border border-slate-800"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-[#1e2333]"></span>
+              </div>
+
+              <!-- PHONE SCREEN CONTAINER -->
+              <div id="mobileHeroSlider" class="relative select-none rounded-[28px] overflow-hidden border border-white/10 bg-[#090a0f] shadow-inner h-[580px] sm:h-[660px] group" style="--hpos: 90%;">
+                
+                <!-- VERTICAL SCROLL AREA (СТАЛО) -->
+                <div id="mobileHeroSliderScrollArea" class="w-full h-full overflow-y-auto overflow-x-hidden relative scroll-smooth" style="scrollbar-width: none; -ms-overflow-style: none;">
+                  <div class="relative w-full pointer-events-none">
+                    <img id="mobileHeroNewImg" src="../assets/soundpower/main-mobile.webp" alt="Soundpower — Мобильный интерфейс" class="w-full h-auto block select-none pointer-events-none" loading="lazy">
+                  </div>
+                </div>
+
+                <!-- БЫЛО (ТЁМНЫЙ ЭКРАН С КРАСНОЙ ПЛАШКОЙ ПО ЦЕНТРУ ЭКРАНА СМАРТФОНА) -->
+                <div class="absolute inset-0 w-full h-full bg-[#08090d] flex items-center justify-center p-6 text-center pointer-events-none z-10 overflow-hidden" style="clip-path: inset(0 calc(100% - var(--hpos, 50%) - 1px) 0 0);">
+                  <div class="p-4 rounded-2xl bg-rose-950/90 border border-rose-500/50 text-xs sm:text-sm text-rose-200 font-mono shadow-2xl backdrop-blur-md max-w-[280px] leading-relaxed">
+                    ⚠️ Нулевой мобильный адаптив. Сервисом со смартфона пользоваться было невозможно
+                  </div>
+                </div>
+
+                <!-- BADGES -->
+                <div class="absolute inset-0 pointer-events-none z-20 overflow-hidden" style="clip-path: inset(0 0 0 var(--hpos, 50%));">
+                  <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-purple-600/90 text-white shadow-lg backdrop-blur-md border border-purple-400/30">
+                    Стало
+                  </div>
+                </div>
+                <div class="absolute inset-0 pointer-events-none z-20 overflow-hidden" style="clip-path: inset(0 calc(100% - var(--hpos, 50%)) 0 0);">
+                  <div class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-slate-900/90 text-slate-200 border border-slate-700 shadow-lg backdrop-blur-md">
+                    До
+                  </div>
+                </div>
+
+                <!-- DIVIDER TRACK & HANDLE -->
+                <div class="absolute inset-y-0 left-0 pointer-events-none z-20 w-full">
+                  <div class="absolute top-0 bottom-0 pointer-events-none" style="left: var(--hpos, 50%); transform: translateX(-50%);">
+                    <div class="w-0.5 h-full bg-white shadow-[0_0_10px_rgba(0,0,0,0.8)]"></div>
+                    <div id="mobileHeroSliderHandle" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white text-slate-900 shadow-2xl border-2 border-purple-500 flex items-center justify-center cursor-ew-resize pointer-events-auto hover:scale-110 active:scale-95 transition-transform touch-none">
+                      <svg class="w-3.5 h-3.5 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                        <polyline points="9 18 3 12 9 6" transform="translate(18, 24) rotate(180)"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- HOME INDICATOR -->
+              <div class="w-28 h-1 bg-slate-600 rounded-full mx-auto mt-2.5 pointer-events-none"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01. CONTEXT -->
+    <section class="space-y-6 mb-[120px] text-slate-700 dark:text-slate-300 leading-relaxed text-base">
+      <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+        01. Запрос заказчика и&nbsp;реальная проблема
+      </h2>
+
+      <p>
+        <strong>Soundpower</strong> — интернет-магазин royalty-free музыки для&nbsp;видеомонтажёров, блогеров и&nbsp;медиа-проектов. Заказчик&nbsp;— предприниматель, который сам развивает свой бизнес. Он пришёл с&nbsp;живой, честной проблемой, но&nbsp;без&nbsp;ТЗ:
+      </p>
+
+      <div class="p-6 rounded-2xl bg-gradient-to-r from-purple-950/40 via-purple-900/20 to-transparent border border-purple-500/30 text-slate-200">
+        <div class="text-xs font-mono text-purple-400 font-bold uppercase tracking-wider mb-2">Прямая речь заказчика:</div>
+        <p class="text-base sm:text-lg italic leading-relaxed text-purple-100">
+          «Сайт делали на&nbsp;скорую руку как&nbsp;прототип: дизайн слабый, выглядит серо и&nbsp;не&nbsp;цепляет. Продаж почти нет, людям неинтересно, интерфейс неудобный&nbsp;— слушать треки тяжело. Хочется сделать стильно, современно и&nbsp;сопоставимо с&nbsp;текущими трендами, чтобы сервис реально продавал. Короче, надо сделать конфетку».
+        </p>
+      </div>
+
+      <!-- АУДИТОРИЯ И ПОЛЯРНОСТЬ СЦЕНАРИЕВ -->
+      <div class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark space-y-2">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">Аудитория и полярность сценариев</span>
+        </div>
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">От 16-летнего видеоблогера до 45-летнего продюсера</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          Пользователи сервиса&nbsp;— весь срез создателей медиаконтента: блогеры, стримеры, подкастеры, режиссёры и&nbsp;коммерческие продакшены. Главный продуктовый вызов&nbsp;— соблюсти баланс: интерфейс должен оставаться кристально простым для&nbsp;новичка (быстрый старт, готовые плейлисты, прозрачные цены) и&nbsp;одновременно давать профессиональную скорость видеомонтажёру (точная мульти-фильтрация, визуальный поиск кульминации на&nbsp;Waveform и&nbsp;чистая лицензия без&nbsp;страйков).
+        </p>
+      </div>
+    </section>
+
+    <!-- 02. CUSTDEV RESEARCH (13 HYPOTHESES) -->
+    <section id="custdev" class="case-reveal space-y-6 mb-[120px]">
+      <div>
+        <span class="text-xs font-mono text-purple-400 font-bold uppercase tracking-wider">// Исследование</span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
+          02. Глубинные интервью: 13 гипотез
+        </h2>
+      </div>
+
+      <!-- STATS STRIP: 13 / 9 / 4 -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between">
+          <div class="text-xs font-mono text-slate-400 uppercase">Протестировано</div>
+          <div class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white font-mono my-1">13</div>
+          <div class="text-xs text-slate-500">гипотез интерфейса на&nbsp;открытом старом сайте</div>
+        </div>
+        <div class="p-4 sm:p-5 rounded-2xl bg-emerald-500/[0.05] dark:bg-emerald-950/20 border border-emerald-500/20 dark:border-emerald-500/30 flex flex-col justify-between">
+          <div class="text-xs font-mono text-emerald-400 uppercase font-semibold">Подтвердились (69%)</div>
+          <div class="text-3xl sm:text-4xl font-extrabold text-emerald-400 font-mono my-1">9</div>
+          <div class="text-xs text-slate-600 dark:text-slate-300">реальные барьеры, убивавшие продажи и&nbsp;доверие</div>
+        </div>
+        <div class="p-4 sm:p-5 rounded-2xl bg-rose-500/[0.05] dark:bg-rose-950/20 border border-rose-500/20 dark:border-rose-500/30 flex flex-col justify-between">
+          <div class="text-xs font-mono text-rose-400 uppercase font-semibold">Опровергнуты (31%)</div>
+          <div class="text-3xl sm:text-4xl font-extrabold text-rose-400 font-mono my-1">4</div>
+          <div class="text-xs text-slate-600 dark:text-slate-300">отсеяли ложные догадки и&nbsp;сберегли время разработки</div>
+        </div>
+      </div>
+
+
+      <!-- 3 KEY ARCHITECTURAL TAKEAWAYS -->
+      <div class="p-6 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark space-y-4">
+        <div class="text-xs font-mono text-purple-400 font-bold uppercase tracking-wider">3 главных инсайта, определивших новый дизайн:</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+          <div class="p-5 rounded-2xl bg-slate-50 dark:bg-surface-dark/70 border border-slate-200/80 dark:border-surface-borderDark flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-mono text-rose-400 font-bold">ИНСАЙТ 01</span>
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 font-medium">Каталог & Цены</span>
+              </div>
+              <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Скрытая цена</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Респондент не&nbsp;покупает, если стоимость спрятана в&nbsp;спойлер: <em>«Пока не&nbsp;добавлю в&nbsp;корзину&nbsp;— цену не&nbsp;вижу»</em>. В&nbsp;новой версии цена открыта сразу в&nbsp;строке каталога (0 кликов).
+              </p>
+            </div>
+          </div>
+          <div class="p-5 rounded-2xl bg-slate-50 dark:bg-surface-dark/70 border border-slate-200/80 dark:border-surface-borderDark flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-mono text-purple-400 font-bold">ИНСАЙТ 02</span>
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 font-medium">Плеер & Waveform</span>
+              </div>
+              <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Слепой плеер</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Видеомонтажеры не&nbsp;слушают трек с&nbsp;00:00&nbsp;— они ищут глазами пик волны (дроп). Внедрили интерактивный Waveform с&nbsp;перемоткой в&nbsp;1 клик.
+              </p>
+            </div>
+          </div>
+          <div class="p-5 rounded-2xl bg-slate-50 dark:bg-surface-dark/70 border border-slate-200/80 dark:border-surface-borderDark flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-mono text-emerald-400 font-bold">ИНСАЙТ 03</span>
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-medium">Первая сессия</span>
+              </div>
+              <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Одинокий трек</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Один трек на&nbsp;главной создавал ложное ощущение, что в&nbsp;библиотеке мало музыки. Собрали подборку топ-5 треков и&nbsp;живые карточки настроений.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLLAPSIBLE DETAILED LOG OF ALL 13 HYPOTHESES -->
+      <div>
+        <div id="moreHypotheses" class="hidden space-y-3 pt-2">
+          <div class="text-xs font-mono text-slate-400 mb-2">// Полный протокол глубинных интервью (13 гипотез):</div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+            <!-- Hyp 1 -->
+            <div class="p-4 rounded-xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/20">
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="font-bold text-slate-900 dark:text-white">01. Не&nbsp;очевидно, что предлагает сайт</span>
+                <span class="font-mono text-xs text-emerald-400 font-bold shrink-0">ПОДТВЕРЖДЕНО ✅</span>
+              </div>
+              <p class="text-slate-600 dark:text-slate-400 italic">«Понятно только что скачать музыку, но&nbsp;не&nbsp;понятно какую и&nbsp;для&nbsp;чего? Что такое Royalty Free?»</p>
+            </div>
+
+            <!-- Hyp 2 -->
+            <div class="p-4 rounded-xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/20">
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="font-bold text-slate-900 dark:text-white">02. Единственный трек в&nbsp;Hero наводит на&nbsp;мысль о&nbsp;бедности каталога</span>
+                <span class="font-mono text-xs text-emerald-400 font-bold shrink-0">ПОДТВЕРЖДЕНО ✅</span>
+              </div>
+              <p class="text-slate-600 dark:text-slate-400 italic">«Как&nbsp;будто мало треков, по&nbsp;1-2 на&nbsp;жанр. Хотелось бы подборку побольше.»</p>
+            </div>
+
+            <!-- Hyp 3 -->
+            <div class="p-4 rounded-xl bg-rose-500/[0.04] dark:bg-rose-950/20 border border-rose-500/20">
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="font-bold text-slate-900 dark:text-white">03. Блоки жанров кажутся некликабельными</span>
+                <span class="font-mono text-xs text-rose-400 font-bold shrink-0">ОПРОВЕРГНУТО ❌</span>
+              </div>
+              <p class="text-slate-600 dark:text-slate-400 italic">«Нажму на&nbsp;квадратик. Все интуитивно понятно, но&nbsp;не&nbsp;очень красиво.»</p>
+            </div>
+
+            <!-- Hyp 4 -->
+            <div class="p-4 rounded-xl bg-rose-500/[0.04] dark:bg-rose-950/20 border border-rose-500/20">
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="font-bold text-slate-900 dark:text-white">04. Меню и&nbsp;корзина слишком незаметны</span>
+                <span class="font-mono text-xs text-rose-400 font-bold shrink-0">ОПРОВЕРГНУТО ❌</span>
+              </div>
+              <p class="text-slate-600 dark:text-slate-400 italic">«В&nbsp;меню посмотрел бы. Но&nbsp;почему корзина называется "Загрузки"?»</p>
+            </div>
+
+            <!-- Hyp 5 -->
+            <div class="p-4 rounded-xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/20">
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="font-bold text-slate-900 dark:text-white">05. Слишком много скролла из-за разбросанных жанров</span>
+                <span class="font-mono text-xs text-emerald-400 font-bold shrink-0">ПОДТВЕРЖДЕНО ✅</span>
+              </div>
+              <p class="text-slate-600 dark:text-slate-400 italic">«Странно блоки раскинуты по&nbsp;всей странице. Их бы сгруппировать.»</p>
+            </div>
+
+            <!-- Hyp 6 -->
+            <div class="p-4 rounded-xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/20">
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="font-bold text-slate-900 dark:text-white">06. Нет ответов на&nbsp;юридические вопросы (FAQ)</span>
+                <span class="font-mono text-xs text-emerald-400 font-bold shrink-0">ПОДТВЕРЖДЕНО ✅</span>
+              </div>
+              <p class="text-slate-600 dark:text-slate-400 italic">«Хотелось бы блок ответов: разъясните, что за&nbsp;лицензия и&nbsp;легально ли на&nbsp;YouTube.»</p>
+            </div>
+
+            <!-- Hyp 7 -->
+            <div class="p-4 rounded-xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/20">
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="font-bold text-slate-900 dark:text-white">07. Кнопка Play мелкая и&nbsp;не&nbsp;меняет состояние на&nbsp;Pause</span>
+                <span class="font-mono text-xs text-emerald-400 font-bold shrink-0">ПОДТВЕРЖДЕНО ✅</span>
+              </div>
+              <p class="text-slate-600 dark:text-slate-400 italic">«Ползунок пошел, но&nbsp;на&nbsp;кнопке Play ничего не&nbsp;изменилось. Непонятно, играет ли.»</p>
+            </div>
+
+            <!-- Hyp 8 -->
+            <div class="p-4 rounded-xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/20">
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="font-bold text-slate-900 dark:text-white">08. Горизонтальный скролл таймлайна бесполезен</span>
+                <span class="font-mono text-xs text-emerald-400 font-bold shrink-0">ПОДТВЕРЖДЕНО ✅</span>
+              </div>
+              <p class="text-slate-600 dark:text-slate-400 italic">«Не&nbsp;поместилась дорожка. Это лишнее, лучше сжать чтобы помещалось.»</p>
+            </div>
+
+            <!-- Hyp 9 -->
+            <div class="p-4 rounded-xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/20">
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="font-bold text-slate-900 dark:text-white">09. Таймер трека расположен в&nbsp;неочевидном месте</span>
+                <span class="font-mono text-xs text-emerald-400 font-bold shrink-0">ПОДТВЕРЖДЕНО ✅</span>
+              </div>
+              <p class="text-slate-600 dark:text-slate-400 italic">«Ожидаю таймер возле Play, а&nbsp;тут как&nbsp;будто вообще нет.»</p>
+            </div>
+
+            <!-- Hyp 10 -->
+            <div class="p-4 rounded-xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/20">
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="font-bold text-slate-900 dark:text-white">10. Цена скрыта в&nbsp;спойлере Info аккордеона</span>
+                <span class="font-mono text-xs text-emerald-400 font-bold shrink-0">ПОДТВЕРЖДЕНО ✅</span>
+              </div>
+              <p class="text-slate-600 dark:text-slate-400 italic">«В&nbsp;каталоге цены нет. Должна быть прямо возле кнопки "в&nbsp;корзину".»</p>
+            </div>
+
+            <!-- Hyp 11 -->
+            <div class="p-4 rounded-xl bg-rose-500/[0.04] dark:bg-rose-950/20 border border-rose-500/20">
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="font-bold text-slate-900 dark:text-white">11. Непонятно, как&nbsp;искать треки по&nbsp;жанрам в&nbsp;каталоге</span>
+                <span class="font-mono text-xs text-rose-400 font-bold shrink-0">ОПРОВЕРГНУТО ❌</span>
+              </div>
+              <p class="text-slate-600 dark:text-slate-400 italic">«Кнопки популярных жанров сверху заметны, в&nbsp;отличие от&nbsp;спрятанной цены.»</p>
+            </div>
+
+            <!-- Hyp 12 -->
+            <div class="p-4 rounded-xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/20">
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="font-bold text-slate-900 dark:text-white">12. Нельзя выбрать 2 жанра одновременно</span>
+                <span class="font-mono text-xs text-emerald-400 font-bold shrink-0">ПОДТВЕРЖДЕНО ✅</span>
+              </div>
+              <p class="text-slate-600 dark:text-slate-400 italic">«Хотел бы нажать и&nbsp;подсветить сразу Рок + Комедия, чтобы отфильтровало.»</p>
+            </div>
+
+            <!-- Hyp 13 -->
+            <div class="p-4 rounded-xl bg-rose-500/[0.04] dark:bg-rose-950/20 border border-rose-500/20 col-span-1 md:col-span-2">
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="font-bold text-slate-900 dark:text-white">13. Непонятно назначение кнопок сортировки</span>
+                <span class="font-mono text-xs text-rose-400 font-bold shrink-0">ОПРОВЕРГНУТО ❌</span>
+              </div>
+              <p class="text-slate-600 dark:text-slate-400 italic">«Кнопки "Трек / Цена" нашел сразу. Но&nbsp;"Трек" это по&nbsp;названию алфавитно?»</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- TOGGLE ACCORDION BUTTON -->
+        <div class="pt-3 text-center">
+          <button id="toggleHypothesesBtn" type="button" onclick="toggleHypotheses()" class="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-purple-600 hover:bg-purple-500 border border-purple-500 hover:border-purple-400 shadow-md active:scale-95 transition-all cursor-pointer">
+            <span id="toggleHypothesesText">Показать все 13 гипотез</span>
+            <svg id="toggleHypothesesIcon" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ИТОГ ИССЛЕДОВАНИЙ: ЧТО КОНКРЕТНО МЕШАЛО ПОКУПАТЬ -->
+      <div class="p-6 rounded-2xl bg-rose-500/[0.04] dark:bg-rose-950/20 border border-rose-500/20 dark:border-rose-500/25">
+        <h4 class="font-bold text-base text-slate-900 dark:text-rose-100 mb-3">Что конкретно мешало людям покупать на&nbsp;старом сайте:</h4>
+        <ul class="list-disc list-outside pl-5 text-sm sm:text-[15px] space-y-2.5 text-slate-700 dark:text-slate-300 leading-relaxed">
+          <li><strong class="text-slate-900 dark:text-white">Отсутствовала подборка треков:</strong> на&nbsp;главной был зафиксирован один трек без&nbsp;контекста, пользователь не&nbsp;понимал, какая музыка актуальна и&nbsp;что сейчас покупают. В&nbsp;новой версии мы добавили блок с&nbsp;подборкой из&nbsp;пяти популярных треков.</li>
+          <li><strong class="text-slate-900 dark:text-white">Скрытая цена:</strong> чтобы узнать стоимость трека, нужно было 3 раза кликнуть и&nbsp;развернуть аккордеон.</li>
+          <li><strong class="text-slate-900 dark:text-white">Неудобный и&nbsp;неинформативный плеер:</strong> громоздкое управление и&nbsp;неочевидные кнопки взаимодействия&nbsp;— оценивать музыку, ориентироваться в&nbsp;треке и&nbsp;тайминге было сложно.</li>
+          <li><strong class="text-slate-900 dark:text-white">Ограниченная фильтрация:</strong> нельзя было совместить два жанра (например, Рок + Комедия).</li>
+          <li><strong class="text-slate-900 dark:text-white">Отсутствие позиционирования и&nbsp;ценности продукта:</strong> новому пользователю было совершенно непонятно, что это за&nbsp;сервис, как&nbsp;он работает, легально ли использовать музыку и&nbsp;в&nbsp;чём его выгода.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 03. PRODUCT SCENARIOS (JOB STORIES) -->
+    <section id="jobstories" class="case-reveal space-y-6 mb-[120px]">
+      <div>
+        <span class="text-xs font-mono text-purple-400 font-bold uppercase tracking-wider">// Фокус пользователя</span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
+          03. Сквозные пользовательские сценарии & User Flow
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Pillar 1 -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono text-purple-400 font-bold">СЦЕНАРИЙ 01</span>
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 font-medium">Поиск & Плеер</span>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Примерка в&nbsp;таймлайн за&nbsp;секунды</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-3">
+              Монтажер ищет трек по&nbsp;настроению и&nbsp;жанрам, кликает в&nbsp;пик волны (дроп) и&nbsp;скачивает превью с&nbsp;водяным знаком без&nbsp;смены экрана.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-100 dark:border-surface-borderDark/80 text-xs text-rose-400 italic">
+            Страх: потратить рабочий день на&nbsp;рутину и&nbsp;не&nbsp;уложиться в&nbsp;дедлайн сдачи видео.
+          </div>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono text-emerald-400 font-bold">СЦЕНАРИЙ 02</span>
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-medium">Цена & Права</span>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Покупка без&nbsp;юридических рисков</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-3">
+              Видеть фиксированную цену трека прямо в&nbsp;каталоге и&nbsp;прозрачные условия Royalty Free лицензии для&nbsp;YouTube и&nbsp;коммерции.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-100 dark:border-surface-borderDark/80 text-xs text-rose-400 italic">
+            Страх: получить страйк на&nbsp;YouTube, блокировку монетизации или&nbsp;переплатить за&nbsp;скрытый тариф.
+          </div>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono text-blue-400 font-bold">СЦЕНАРИЙ 03</span>
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 font-medium">Повторные сессии</span>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Личная медиатека и&nbsp;перескачивание</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-3">
+              Сохранение понравившихся треков в&nbsp;«Избранное» и&nbsp;доступ к&nbsp;купленным лицензиям для&nbsp;повторной загрузки без&nbsp;повторной оплаты.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-100 dark:border-surface-borderDark/80 text-xs text-rose-400 italic">
+            Страх: потерять удачно найденный трек или&nbsp;дважды оплачивать один и&nbsp;тот же файл.
+          </div>
+        </div>
+      </div>
+
+      <!-- TOGGLE JOB STORIES BUTTON -->
+      <div class="pt-2 text-center">
+        <button id="toggleJobStoriesBtn" type="button" onclick="toggleJobStories()" class="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-purple-600 hover:bg-purple-500 border border-purple-500 hover:border-purple-400 shadow-md active:scale-95 transition-all cursor-pointer">
+          <span id="toggleJobStoriesText">Показать Job Stories</span>
+          <svg id="toggleJobStoriesIcon" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- HIDDEN ACCORDION CONTAINER FOR 6 JOB STORIES -->
+      <div id="jobStoriesContainer" class="hidden space-y-4 pt-2">
+        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider text-center sm:text-left">
+          Детализация: 6 ключевых Job Stories
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- JS 01 -->
+          <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3">
+            <div>
+              <div class="text-xs font-mono text-purple-400 font-bold mb-1">JS 01 • ПОИСК</div>
+              <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Быстрый подбор под&nbsp;настроение</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-3">Фильтрация по&nbsp;жанру и&nbsp;настроению за&nbsp;минуты, чтобы освободить время для&nbsp;монтажа, а&nbsp;не&nbsp;для&nbsp;рутины.</p>
+            </div>
+            <div class="pt-2 border-t border-slate-100 dark:border-surface-borderDark/80 text-xs text-rose-400 italic">Страх: потратить весь рабочий день и&nbsp;ничего не&nbsp;найти.</div>
+          </div>
+
+          <!-- JS 02 -->
+          <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3">
+            <div>
+              <div class="text-xs font-mono text-purple-400 font-bold mb-1">JS 02 • ЦЕНА</div>
+              <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Прозрачная стоимость сразу</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-3">Видеть цену трека без&nbsp;звонков, заявок и&nbsp;раскрытия спойлеров, чтобы сразу понимать бюджет.</p>
+            </div>
+            <div class="pt-2 border-t border-slate-100 dark:border-surface-borderDark/80 text-xs text-rose-400 italic">Страх: потратить время на&nbsp;трек, который не&nbsp;по&nbsp;карману.</div>
+          </div>
+
+          <!-- JS 03 -->
+          <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3">
+            <div>
+              <div class="text-xs font-mono text-purple-400 font-bold mb-1">JS 03 • ПЛЕЕР</div>
+              <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Превью в&nbsp;списке каталога</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-3">Слушать превью и&nbsp;кликать на&nbsp;пики вейвформы прямо в&nbsp;общем списке без&nbsp;перехода на&nbsp;отдельную страницу.</p>
+            </div>
+            <div class="pt-2 border-t border-slate-100 dark:border-surface-borderDark/80 text-xs text-rose-400 italic">Страх: усталость от&nbsp;бесконечных переходов туда-обратно.</div>
+          </div>
+
+          <!-- JS 04 -->
+          <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3">
+            <div>
+              <div class="text-xs font-mono text-purple-400 font-bold mb-1">JS 04 • ЛЕГАЛЬНОСТЬ</div>
+              <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Чистая Royalty Free лицензия</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-3">Чёткое понимание разрешённых площадок для&nbsp;защиты репутации и&nbsp;финансов.</p>
+            </div>
+            <div class="pt-2 border-t border-slate-100 dark:border-surface-borderDark/80 text-xs text-rose-400 italic">Страх: страйк на&nbsp;YouTube, демонетизация или&nbsp;судебный иск.</div>
+          </div>
+
+          <!-- JS 05 -->
+          <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3">
+            <div>
+              <div class="text-xs font-mono text-purple-400 font-bold mb-1">JS 05 • ИЗБРАННОЕ</div>
+              <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Своя библиотека треков</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-3">Сохранять понравившиеся треки в&nbsp;один клик, формируя базу для&nbsp;будущих проектов.</p>
+            </div>
+            <div class="pt-2 border-t border-slate-100 dark:border-surface-borderDark/80 text-xs text-rose-400 italic">Страх: потерять удачный трек и&nbsp;не&nbsp;найти его снова.</div>
+          </div>
+
+          <!-- JS 06 -->
+          <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3">
+            <div>
+              <div class="text-xs font-mono text-purple-400 font-bold mb-1">JS 06 • ИСТОРИЯ</div>
+              <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Повторное скачивание</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-3">Быстрый доступ к&nbsp;истории купленных лицензий для&nbsp;повторной загрузки без&nbsp;оплаты.</p>
+            </div>
+            <div class="pt-2 border-t border-slate-100 dark:border-surface-borderDark/80 text-xs text-rose-400 italic">Страх: платить дважды за&nbsp;один и&nbsp;тот же трек.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- USER FLOW (FIGJAM ARCHITECTURAL MAPPING) -->
+      <div class="mt-12 pt-8 border-t border-slate-200 dark:border-surface-borderDark space-y-6">
+        <div>
+          <span class="text-xs font-mono text-purple-400 font-bold uppercase tracking-wider">// userflow</span>
+        </div>
+
+        <!-- FigJam Interactive Window / Frame -->
+        <div id="flowFrameContainer" class="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 dark:border-surface-borderDark bg-[#0e1117] shadow-2xl transition-all duration-300">
+          <!-- Fullscreen Toggle Button -->
+          <button 
+            id="flowFullscreenBtn" 
+            type="button" 
+            onclick="toggleFlowFullscreen()" 
+            title="На весь экран" 
+            aria-label="На весь экран" 
+            class="absolute top-3 right-3 z-30 p-2 sm:p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/60 shadow-lg backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer">
+            <svg id="fsExpandIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+            </svg>
+            <svg id="fsCompressIcon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 14h6m0 0v6m0-6L3 21m17-7h-6m0 0v6m0-6l7 7M10 10H4m6 0V4m0 6L3 3m14 7h6m-6 0V4m0 6l7-7"/>
+            </svg>
+          </button>
+
+          <!-- Embed iframe -->
+          <div id="flowFrameInner" class="relative w-full h-[500px] sm:h-[620px] bg-[#1e1e1e] overflow-hidden">
+            <iframe 
+              id="figjamIframe"
+              class="w-full border-0 block -mt-[49px]" 
+              style="height: calc(100% + 49px);"
+              src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fboard%2FErZGDg72J6umSjjme1oWdl%2F%25D0%25A1%25D0%25B8%25D0%25BB%25D0%25B0-%25D0%2597%25D0%25B2%25D1%2583%25D0%25BA%25D0%25B0-UF%3Fnode-id%3D0-1" 
+              allowfullscreen 
+              loading="lazy">
+            </iframe>
+          </div>
+        </div>
+
+        <!-- 3 Architectural Highlights (Takeaways for hiring team) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+          <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-mono text-purple-400 font-bold">ПРИНЦИП 01</span>
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 font-medium">В строке каталога</span>
+              </div>
+              <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Плеер прямо в строке каталога</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Воспроизведение трека, перемотка по Waveform и&nbsp;быстрый выбор лицензии доступны прямо в&nbsp;строке каталога без&nbsp;перехода на&nbsp;отдельные страницы.
+              </p>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-mono text-emerald-400 font-bold">ПРИНЦИП 02</span>
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-medium">Без&nbsp;барьеров</span>
+              </div>
+              <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Мягкая авторизация (JIT)</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Пользователь слушает треки и&nbsp;наполняет корзину анонимно. Вход запрашивается строго в&nbsp;момент финального оформления покупки.
+              </p>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-mono text-blue-400 font-bold">ПРИНЦИП 03</span>
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 font-medium">Неблокирующий UX</span>
+              </div>
+              <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Toast с&nbsp;10с тайм-аутом</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                При&nbsp;клике на&nbsp;покупку всплывает уведомление с&nbsp;предложением перейти к&nbsp;оплате, которое исчезает через&nbsp;10 секунд бездействия, не&nbsp;перебивая фокус на&nbsp;поиске музыки.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. INTERACTION COST & UI ANATOMY (BEFORE VS AFTER) -->
+    <section id="interaction" class="case-reveal space-y-6 mb-[120px]">
+      <div>
+        <span class="text-xs font-mono text-purple-400 font-bold uppercase tracking-wider">// Метрики взаимодействия</span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
+          04. Оптимизация Interaction Cost
+        </h2>
+      </div>
+
+      <!-- INTERACTION COST BENCHMARK TABLE -->
+      <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-surface-borderDark">
+        <table class="w-full text-left text-sm">
+          <thead class="bg-slate-100 dark:bg-surface-cardDark text-xs font-mono uppercase text-slate-500 border-b border-slate-200 dark:border-surface-borderDark">
+            <tr>
+              <th class="p-4">Сценарий</th>
+              <th class="p-4">Было (Старый сайт)</th>
+              <th class="p-4">Стало (Редизайн)</th>
+              <th class="p-4">UX-эффект</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 dark:divide-surface-borderDark text-slate-600 dark:text-slate-300">
+            <tr>
+              <td class="p-4 font-semibold text-slate-900 dark:text-white">Узнать цену трека</td>
+              <td class="p-4 text-rose-400 font-mono">3 клика (аккордеон + выбор)</td>
+              <td class="p-4 text-emerald-400 font-mono font-bold">0 кликов (в&nbsp;строке каталога)</td>
+              <td class="p-4 text-sm">Прозрачность, мгновенная оценка бюджета</td>
+            </tr>
+            <tr>
+              <td class="p-4 font-semibold text-slate-900 dark:text-white">Мульти-фильтрация жанров</td>
+              <td class="p-4 text-rose-400 font-mono">1 жанр за&nbsp;раз со&nbsp;сбросом</td>
+              <td class="p-4 text-emerald-400 font-mono font-bold">1 клик (мультиселект тегов)</td>
+              <td class="p-4 text-sm">Точный поиск пересечения стилей</td>
+            </tr>
+            <tr>
+              <td class="p-4 font-semibold text-slate-900 dark:text-white">Поиск кульминации (дропа)</td>
+              <td class="p-4 text-slate-400">Слепое прослушивание с&nbsp;00:00</td>
+              <td class="p-4 text-emerald-400 font-mono font-bold">1 клик в&nbsp;пик на&nbsp;Waveform</td>
+              <td class="p-4 text-sm">Быстрая примерка под&nbsp;таймлайн видео</td>
+            </tr>
+            <tr>
+              <td class="p-4 font-semibold text-slate-900 dark:text-white">Сохранить трек в&nbsp;избранное</td>
+              <td class="p-4 text-slate-400">Нет инструмента (копирование ссылок в&nbsp;заметки)</td>
+              <td class="p-4 text-emerald-400 font-mono font-bold">1 клик прямо в&nbsp;плеере</td>
+              <td class="p-4 text-sm">Своя библиотека и&nbsp;подборки под&nbsp;проекты</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 05. INTERACTIVE HOVER PLAYGROUND -->
+    <section id="hover-demo" class="case-reveal space-y-6 mb-[120px] p-6 sm:p-8 rounded-3xl bg-[#16181E] border border-purple-500/25">
+      <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+        05. Микроанимация карточек жанров при&nbsp;наведении (Hover State)
+      </h2>
+
+      <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+        В&nbsp;старом дизайне карточки были серыми статичными блоками. В&nbsp;редизайне внедрена микроинтерактивность: при&nbsp;наведении курсора карточка плавно всплывает (elevation + scale), проявляется мягкое свечение темы и&nbsp;выезжает акцентная кнопка, давая пользователю понятный визуальный аффорданс кликабельности для&nbsp;перехода в&nbsp;каталог выбранного жанра.
+      </p>
+
+      <!-- GIF ANIMATION SHOWCASE -->
+      <div class="rounded-2xl overflow-hidden bg-[#16181E] flex flex-col items-center">
+        <img src="../assets/soundpower/category-animation.gif" alt="Микроанимация карточек категорий при наведении" class="w-full max-w-[800px] h-auto rounded-xl block select-none" loading="lazy">
+      </div>
+    </section>
+
+    <!-- 06. PLAYER & WAVEFORM -->
+    <section id="player" class="case-reveal space-y-6 mb-[120px] text-slate-700 dark:text-slate-300 leading-relaxed text-base">
+      <div>
+        <span class="text-xs font-mono text-purple-400 font-bold uppercase tracking-wider">// Ключевой инструмент</span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
+          06. Аудиоплеер с&nbsp;волновой диаграммой (Waveform)
+        </h2>
+      </div>
+
+      <p class="text-slate-600 dark:text-slate-300">
+        В&nbsp;аудиостоках плеер&nbsp;— главное рабочее место пользователя. Видеомонтажёр не&nbsp;слушает трек целиком: он глазами ищет на&nbsp;волновой диаграмме кульминацию и&nbsp;кликает ровно туда, чтобы примерить звук под&nbsp;динамику видеоряда.
+      </p>
+
+      <!-- FEEDBACK & PLAY/PAUSE AFFORDANCE COMPARISON -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark text-sm">
+        <div class="space-y-2 p-4 rounded-xl bg-rose-500/[0.04] dark:bg-rose-950/20 border border-rose-500/20">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-mono font-bold text-rose-500 dark:text-rose-400 uppercase tracking-wider">Было • Старый сайт</span>
+          </div>
+          <div class="text-sm font-bold text-slate-900 dark:text-white">Статичная кнопка «Play/Pause» без&nbsp;обратной связи</div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Была одна общая прямоугольная кнопка, на&nbsp;которой одновременно было написано «Play / Pause». При&nbsp;нажатии она никак визуально не&nbsp;менялась. Пользователь не&nbsp;понимал по&nbsp;индикации интерфейса: играет трек или&nbsp;стоит на&nbsp;паузе, и&nbsp;что произойдет при&nbsp;клике. Определить статус можно было только на&nbsp;слух или&nbsp;всматриваясь в&nbsp;микро-ползунок на&nbsp;таймлайне и&nbsp;секунды таймера.
+          </p>
+        </div>
+
+        <div class="space-y-2 p-4 rounded-xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/20">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-mono font-bold text-emerald-500 dark:text-emerald-400 uppercase tracking-wider">Стало • Редизайн</span>
+          </div>
+          <div class="text-sm font-bold text-slate-900 dark:text-white">Однозначные динамические состояния кнопки</div>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            Кнопка получила прозрачную обратную связь: в&nbsp;режиме ожидания отображается кнопка <strong>Play</strong>. При&nbsp;воспроизведении она мгновенно заменяется на <strong>Pause</strong> — пользователю предельно ясно, что плеер активен и&nbsp;клик поставит его на&nbsp;паузу. При&nbsp;паузе снова возвращается Play. Никакой когнитивной нагрузки и&nbsp;гаданий по&nbsp;звуку.
+          </p>
+        </div>
+      </div>
+
+      <!-- PLAYER BEFORE / AFTER COMPARISON SLIDER -->
+      <div class="space-y-3">
+        <div id="playerBeforeAfterSlider" class="relative select-none rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 dark:border-surface-borderDark shadow-2xl h-[250px] sm:h-[280px] bg-[#0b0d13] group" style="--pos: 90%;">
+          
+          <!-- СТАЛО (НОВЫЙ ПЛЕЕР) — НИЖНИЙ СЛОЙ -->
+          <div class="absolute inset-0 w-full h-full bg-[#0b0d13] flex items-center justify-center px-4 sm:px-10">
+            <div class="w-full max-w-[840px]">
+              <img src="../assets/soundpower/player-new.png" alt="Soundpower — Новый эргономичный плеер" class="w-full h-auto block pointer-events-none select-none" loading="lazy">
+            </div>
+          </div>
+
+          <!-- БЫЛО (СТАРЫЙ ПЛЕЕР) — ВЕРХНИЙ СЛОЙ С CLIP-PATH -->
+          <div class="absolute inset-0 w-full h-full bg-white flex items-center justify-center px-4 sm:px-10 overflow-hidden pointer-events-none select-none" style="clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0);">
+            <div class="w-full max-w-[840px]">
+              <img src="../assets/soundpower/player-old.png" alt="Soundpower — Исходный плеер старого сайта" class="w-full h-auto block pointer-events-none select-none" loading="lazy">
+            </div>
+          </div>
+
+          <!-- БЕЙДЖИ ВЕРСИЙ (ДИНАМИЧЕСКИ СКРЫВАЮТСЯ ПОЛОТНОМ ПРИ ПЕРЕМЕЩЕНИИ ПОЛЗУНКА) -->
+          <div class="absolute inset-0 pointer-events-none z-20 overflow-hidden" style="clip-path: inset(0 0 0 var(--pos, 50%));">
+            <div class="absolute top-4 right-4 px-3 py-1.5 rounded-full text-xs font-mono font-bold bg-purple-600/90 text-white shadow-lg backdrop-blur-md border border-purple-400/30">
+              Стало
+            </div>
+          </div>
+          <div class="absolute inset-0 pointer-events-none z-20 overflow-hidden" style="clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0);">
+            <div class="absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-mono font-bold bg-slate-900/90 text-slate-200 border border-slate-700 shadow-lg backdrop-blur-md">
+              До
+            </div>
+          </div>
+
+          <!-- РАЗДЕЛИТЕЛЬНАЯ ЛИНИЯ И РУЧКА -->
+          <div class="absolute inset-y-0 left-0 pointer-events-none z-20 w-full">
+            <div class="absolute top-0 bottom-0 pointer-events-none" style="left: var(--pos, 50%); transform: translateX(-50%);">
+              <div class="w-0.5 h-full bg-white shadow-[0_0_12px_rgba(0,0,0,0.8)]"></div>
+              <div id="playerSliderHandle" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white text-slate-900 shadow-2xl border-2 border-purple-500 flex items-center justify-center cursor-ew-resize pointer-events-auto hover:scale-110 active:scale-95 transition-transform touch-none">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                  <polyline points="9 18 3 12 9 6" transform="translate(18, 24) rotate(180)"></polyline>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="flex items-center justify-between text-xs text-slate-500 px-2 font-mono">
+          <span>// Тяните ползунок влево-вправо</span>
+          <span class="text-purple-400 font-bold">Сравнение плеера</span>
+        </div>
+      </div>
+
+      <!-- PLAYER ANATOMY & FEATURES -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+        <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 font-medium uppercase">Навигация</span>
+              <span class="text-xs font-semibold text-slate-400">Скраббинг</span>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Интерактивный Waveform</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              Амплитудный график позволяет в&nbsp;1 клик перейти к&nbsp;кульминации трека (дропу). Прослушанная часть волны и&nbsp;пройденный таймкод окрашиваются в&nbsp;синий цвет, наглядно показывая прогресс.
+            </p>
+          </div>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-medium uppercase">Прозрачность</span>
+              <span class="text-xs font-semibold text-emerald-400">0 кликов</span>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Цена и&nbsp;категория в&nbsp;строке</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              Стоимость («599 ₽») и&nbsp;категория вынесены прямо в&nbsp;строку трека. Не&nbsp;нужно раскрывать аккордеоны, тултипы или&nbsp;заходить в&nbsp;карточки, чтобы сразу оценить бюджет.
+            </p>
+          </div>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 font-medium uppercase">Избранное</span>
+              <span class="text-xs font-semibold text-slate-400">1 клик</span>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Шортлист проекта</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              Кнопка с&nbsp;сердечком мгновенно сохраняет трек в&nbsp;избранную подборку проекта, позволяя быстро собрать пул подходящих композиций без&nbsp;потери контекста поиска.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATALOG BEFORE / AFTER COMPARISON SLIDER WITH DESKTOP & MOBILE TABS -->
+      <div id="catalog-comparison" class="mt-8 space-y-4">
+        
+        <!-- VIEWPORT SWITCHER TABS -->
+        <div class="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-surface-cardDark rounded-xl border border-slate-200 dark:border-surface-borderDark w-fit">
+          <button type="button" onclick="switchCatalogMode('desktop')" id="catalogModeBtn-desktop" class="p-2 sm:p-2.5 rounded-lg transition-all flex items-center justify-center bg-purple-600 text-white shadow-md shadow-purple-600/30" title="Десктоп">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke-width="2"></rect><line x1="8" y1="21" x2="16" y2="21" stroke-width="2"></line><line x1="12" y1="17" x2="12" y2="21" stroke-width="2"></line></svg>
+          </button>
+          <button type="button" onclick="switchCatalogMode('mobile')" id="catalogModeBtn-mobile" class="p-2 sm:p-2.5 rounded-lg transition-all flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/50" title="Мобильная">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3" ry="3" stroke-width="2"></rect><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="2.5" stroke-linecap="round"></line></svg>
+          </button>
+        </div>
+
+        <!-- 1. DESKTOP MODE CONTAINER -->
+        <div id="catalogContainerDesktop" class="space-y-3">
+          <div id="catalogBeforeAfterSlider" class="relative select-none rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 dark:border-surface-borderDark bg-[#090a0f] shadow-2xl h-[620px] sm:h-[760px] md:h-[820px] group" style="--pos: 90%; --sb-width: 7px;">
+            
+            <!-- ВЕРТИКАЛЬНО СКРОЛЛЯЩИЙСЯ КОНТЕЙНЕР (СИНХРОННЫЙ СКРОЛЛ ОБЕИХ ВЕРСИЙ КАТАЛОГА) -->
+            <div id="catalogSliderScrollArea" class="w-full h-full overflow-y-auto overflow-x-hidden relative scroll-smooth">
+              <div id="catalogScrollContent" class="relative w-full">
+                <!-- СТАЛО (НОВЫЙ КАТАЛОГ — ЧЁРНАЯ СТОРОНА — НИЖНИЙ СЛОЙ, ФИКСИРУЕТСЯ ВНИЗУ ПРИ ДОСТИЖЕНИИ ФУТЕРА) -->
+                <div id="newCatalogClipWrapper" class="absolute inset-0 w-full pointer-events-none overflow-hidden">
+                  <img id="newCatalogImg" src="../assets/soundpower/catalog-desktop.webp" alt="Soundpower — Новый каталог треков" class="w-full h-auto block select-none pointer-events-none will-change-transform" loading="lazy">
+                </div>
+                
+                <!-- БЫЛО (СТАРЫЙ КАТАЛОГ — БЕЛАЯ СТОРОНА — ВЕРХНИЙ СЛОЙ, ЗАДАЁТ ПОЛНУЮ ВЫСОТУ СКРОЛЛА И КЛИПАЕТСЯ ПОЛЗУНКОМ) -->
+                <div id="oldCatalogClipWrapper" class="relative w-full pointer-events-none overflow-hidden" style="clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0);">
+                  <img id="oldCatalogImg" src="../assets/soundpower/catalog-old.png" alt="Soundpower — Исходный каталог старого сайта" class="w-full h-auto block select-none pointer-events-none" loading="lazy">
+                </div>
+              </div>
+            </div>
+
+            <!-- БЕЙДЖИ ВЕРСИЙ -->
+            <div class="absolute inset-0 pointer-events-none z-20 overflow-hidden" style="clip-path: inset(0 0 0 var(--pos, 50%));">
+              <div class="absolute top-4 right-4 px-3 py-1.5 rounded-full text-xs font-mono font-bold bg-purple-600/90 text-white shadow-lg backdrop-blur-md border border-purple-400/30">
+                СТАЛО
+              </div>
+            </div>
+            <div class="absolute inset-0 pointer-events-none z-20 overflow-hidden" style="clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0);">
+              <div class="absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-mono font-bold bg-slate-900/90 text-slate-200 border border-slate-700 shadow-lg backdrop-blur-md">
+                ДО
+              </div>
+            </div>
+
+            <!-- РАЗДЕЛИТЕЛЬНАЯ ЛИНИЯ И РУЧКА ПОЛЗУНКА -->
+            <div id="catalogSliderDividerTrack" class="absolute inset-y-0 left-0 pointer-events-none z-20" style="right: var(--sb-width, 7px);">
+              <div class="absolute top-0 bottom-0 pointer-events-none" style="left: var(--pos, 50%); transform: translateX(-50%);">
+                <div class="w-0.5 h-full bg-white shadow-[0_0_12px_rgba(0,0,0,0.8)]"></div>
+                <div id="catalogSliderHandle" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white text-slate-900 shadow-2xl border-2 border-purple-500 flex items-center justify-center cursor-ew-resize pointer-events-auto hover:scale-110 active:scale-95 transition-transform touch-none">
+                  <svg class="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                    <polyline points="9 18 3 12 9 6" transform="translate(18, 24) rotate(180)"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="flex items-center justify-between text-xs text-slate-500 px-2 font-mono">
+            <span>// Тяните ползунок слева вправо для сравнения витрин</span>
+            <span class="text-purple-400 font-bold">Сравнение версий</span>
+          </div>
+        </div>
+
+        <!-- 2. MOBILE MODE CONTAINER -->
+        <div id="catalogContainerMobile" class="hidden">
+          <div class="flex justify-center py-2 sm:py-4">
+            
+            <!-- SMARTPHONE MOCKUP FRAME -->
+            <div class="w-full max-w-[360px] sm:max-w-[390px] shrink-0 bg-[#090b10] p-3 sm:p-3.5 rounded-[44px] border-4 border-slate-700/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] relative ring-1 ring-white/10">
+              <!-- DYNAMIC ISLAND / SPEAKER -->
+              <div class="w-28 h-4.5 bg-black rounded-full mx-auto mb-2 flex items-center justify-between px-3">
+                <span class="w-2 h-2 rounded-full bg-slate-900 border border-slate-800"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-[#1e2333]"></span>
+              </div>
+
+              <!-- PHONE SCREEN CONTAINER -->
+              <div id="mobileCatalogSlider" class="relative select-none rounded-[28px] overflow-hidden border border-white/10 bg-[#090a0f] shadow-inner h-[580px] sm:h-[660px] group" style="--mpos: 90%;">
+                
+                <!-- VERTICAL SCROLL AREA (СТАЛО) -->
+                <div id="mobileSliderScrollArea" class="w-full h-full overflow-y-auto overflow-x-hidden relative scroll-smooth" style="scrollbar-width: none; -ms-overflow-style: none;">
+                  <div class="relative w-full pointer-events-none">
+                    <img id="mobileNewCatalogImg" src="../assets/soundpower/catalog-mobile.webp" alt="Soundpower — Мобильный каталог треков" class="w-full h-auto block select-none pointer-events-none" loading="lazy">
+                  </div>
+                </div>
+
+                <!-- БЫЛО (ТЁМНЫЙ ЭКРАН С КРАСНОЙ ПЛАШКОЙ ПО ЦЕНТРУ ЭКРАНА СМАРТФОНА) -->
+                <div id="mobileOldCatalogClipWrapper" class="absolute inset-0 w-full h-full bg-[#08090d] flex items-center justify-center p-6 text-center pointer-events-none z-10 overflow-hidden" style="clip-path: inset(0 calc(100% - var(--mpos, 50%) - 1px) 0 0);">
+                  <div class="p-4 rounded-2xl bg-rose-950/90 border border-rose-500/50 text-xs sm:text-sm text-rose-200 font-mono shadow-2xl backdrop-blur-md max-w-[280px] leading-relaxed">
+                    ⚠️ Нулевой мобильный адаптив. Сервисом со смартфона пользоваться было невозможно
+                  </div>
+                </div>
+
+                <!-- BADGES -->
+                <div class="absolute inset-0 pointer-events-none z-20 overflow-hidden" style="clip-path: inset(0 0 0 var(--mpos, 50%));">
+                  <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-purple-600/90 text-white shadow-lg backdrop-blur-md border border-purple-400/30">
+                    Стало
+                  </div>
+                </div>
+                <div class="absolute inset-0 pointer-events-none z-20 overflow-hidden" style="clip-path: inset(0 calc(100% - var(--mpos, 50%)) 0 0);">
+                  <div class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-slate-900/90 text-slate-200 border border-slate-700 shadow-lg backdrop-blur-md">
+                    До
+                  </div>
+                </div>
+
+                <!-- DIVIDER TRACK & HANDLE -->
+                <div id="mobileSliderDividerTrack" class="absolute inset-y-0 left-0 pointer-events-none z-20 w-full">
+                  <div class="absolute top-0 bottom-0 pointer-events-none" style="left: var(--mpos, 50%); transform: translateX(-50%);">
+                    <div class="w-0.5 h-full bg-white shadow-[0_0_10px_rgba(0,0,0,0.8)]"></div>
+                    <div id="mobileCatalogSliderHandle" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white text-slate-900 shadow-2xl border-2 border-purple-500 flex items-center justify-center cursor-ew-resize pointer-events-auto hover:scale-110 active:scale-95 transition-transform touch-none">
+                      <svg class="w-3.5 h-3.5 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                        <polyline points="9 18 3 12 9 6" transform="translate(18, 24) rotate(180)"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- HOME INDICATOR -->
+              <div class="w-28 h-1 bg-slate-600 rounded-full mx-auto mt-2.5 pointer-events-none"></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 07. DESIGN SYSTEM & ATOMIC ARCHITECTURE -->
+    <section id="design-system" class="case-reveal space-y-6 mb-[120px] text-slate-700 dark:text-slate-300 leading-relaxed text-base">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+          07. Дизайн-система
+        </h2>
+      </div>
+
+      <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+        Собрал для проекта единую библиотеку компонентов в&nbsp;Figma: вынес цвета, шрифты и&nbsp;отступы в&nbsp;дизайн-токены, а&nbsp;для каждого элемента&nbsp;— от&nbsp;кнопок и&nbsp;карточек до&nbsp;плеера&nbsp;— отрисовал все состояния при наведении, клике и&nbsp;блокировке. Разработчикам легко переносить макеты в&nbsp;код без лишних вопросов и&nbsp;подгонки по&nbsp;пикселям.
+      </p>
+
+      <!-- DESIGN SYSTEM SPECS BADGES -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark">
+          <div class="text-xs font-mono text-purple-400 font-bold mb-1">TOKENS</div>
+          <div class="text-sm font-bold text-slate-900 dark:text-white">Figma Variables</div>
+          <div class="text-xs text-slate-500 mt-0.5">Семантические токены цветов и&nbsp;шрифтов</div>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark">
+          <div class="text-xs font-mono text-emerald-400 font-bold mb-1">GRID & LAYOUT</div>
+          <div class="text-sm font-bold text-slate-900 dark:text-white">Сетка 6pt</div>
+          <div class="text-xs text-slate-500 mt-0.5">Отступы кратны 6, вёрстка на&nbsp;Auto Layout</div>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark">
+          <div class="text-xs font-mono text-blue-400 font-bold mb-1">BUTTONS & CONTROLS</div>
+          <div class="text-sm font-bold text-slate-900 dark:text-white">4 состояния</div>
+          <div class="text-xs text-slate-500 mt-0.5">Default, Hover, Active, Disabled</div>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE DESIGN SYSTEM TABS -->
+      <div class="space-y-4 pt-2">
+        <!-- TAB BUTTONS -->
+        <div class="flex items-center gap-2 overflow-x-auto sm:overflow-visible no-scrollbar py-3.5 px-1.5 -my-2" style="scrollbar-width: none; -ms-overflow-style: none;">
+          <button type="button" onclick="switchDsTab('buttons')" id="dsTabBtn-buttons" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap bg-purple-600 text-white shadow-lg shadow-purple-600/30 border border-purple-500">
+            UI / Buttons & Accordion
+          </button>
+          <button type="button" onclick="switchDsTab('cards')" id="dsTabBtn-cards" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap bg-slate-100 dark:bg-surface-cardDark text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-surface-borderDark">
+            UI / Cards
+          </button>
+          <button type="button" onclick="switchDsTab('mobile')" id="dsTabBtn-mobile" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap bg-slate-100 dark:bg-surface-cardDark text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-surface-borderDark">
+            UI / Mobile
+          </button>
+          <button type="button" onclick="switchDsTab('overview')" id="dsTabBtn-overview" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap bg-slate-100 dark:bg-surface-cardDark text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-surface-borderDark">
+            И многое другое
+          </button>
+        </div>
+
+        <!-- TAB CONTENT PANELS CONTAINER -->
+        <div class="rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 dark:border-surface-borderDark bg-[#090a0f] shadow-2xl flex flex-col justify-center min-h-[480px]">
+          
+          <!-- PANEL 1: BUTTONS & ACCORDION (ACTIVE BY DEFAULT) -->
+          <div id="dsPanel-buttons" class="space-y-0">
+            <img src="/assets/soundpower/Buttons.png" width="2992" height="1286" alt="Soundpower: UI Buttons" class="w-full h-auto block cursor-zoom-in hover:brightness-105 transition-opacity" onclick="openDsLightbox(0)" title="Нажмите, чтобы открыть в полном размере">
+            <img src="/assets/soundpower/Accordion.png" width="2992" height="1614" alt="Soundpower: UI Accordion" class="w-full h-auto block cursor-zoom-in hover:brightness-105 transition-opacity" onclick="openDsLightbox(1)" title="Нажмите, чтобы открыть в полном размере">
+          </div>
+
+          <!-- PANEL 2: CARDS -->
+          <div id="dsPanel-cards" class="hidden">
+            <img src="/assets/soundpower/Cards.webp" width="3218" height="4082" alt="Soundpower: UI Cards" class="w-full h-auto block cursor-zoom-in hover:brightness-105 transition-opacity" onclick="openDsLightbox(2)" title="Нажмите, чтобы открыть в полном размере">
+          </div>
+
+          <!-- PANEL 3: MOBILE -->
+          <div id="dsPanel-mobile" class="hidden">
+            <img src="/assets/soundpower/Mobile.png" width="2596" height="2960" alt="Soundpower: UI Mobile" class="w-full h-auto block cursor-zoom-in hover:brightness-105 transition-opacity" onclick="openDsLightbox(3)" title="Нажмите, чтобы открыть в полном размере">
+          </div>
+
+          <!-- PANEL 4: OVERVIEW / И МНОГОЕ ДРУГОЕ -->
+          <div id="dsPanel-overview" class="hidden">
+            <img src="/assets/soundpower/UI.webp" width="13742" height="5984" alt="Soundpower: И многое другое" class="w-full h-auto block cursor-zoom-in hover:brightness-105 transition-opacity" onclick="openDsLightbox(4)" title="Нажмите, чтобы открыть в полном размере">
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. FORECAST METRICS -->
+    <section id="forecast" class="case-reveal space-y-6 mb-[120px]">
+      <div>
+        <span class="text-xs font-mono text-purple-400 font-bold uppercase tracking-wider">// Эффективность дизайна</span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
+          08. Прогноз целевых показателей
+        </h2>
+      </div>
+
+      <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+        У&nbsp;Soundpower не&nbsp;было сквозной продакшн-аналитики, поэтому мы не&nbsp;можем оперировать фактическими историческими данными. Чтобы объективно оценивать качество редизайна, мы опираемся на&nbsp;отраслевые бенчмарки медиа-стоков (Epidemic Sound, Artlist) и&nbsp;формируем прогноз целевых показателей ключевых продуктовых метрик.
+      </p>
+
+      <!-- 4 METRICS CARDS (AARRR BENCHMARKS) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+        
+        <!-- CARD 1: Activation Rate -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3 hover:border-purple-500/40 transition-colors">
+          <div>
+            <h3 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white whitespace-nowrap">Activation Rate</h3>
+            <div class="text-2xl sm:text-3xl font-extrabold text-purple-400 tracking-tight font-mono whitespace-nowrap mt-2">60–65%</div>
+          </div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 leading-snug pt-1">прослушивание трека в&nbsp;каталоге</div>
+        </div>
+
+        <!-- CARD 2: Conversion -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3 hover:border-emerald-500/40 transition-colors">
+          <div>
+            <h3 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white whitespace-nowrap">Conversion (CR)</h3>
+            <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight font-mono whitespace-nowrap mt-2">2.4–3.0%</div>
+          </div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 leading-snug pt-1">конверсия из&nbsp;визита каталога в&nbsp;покупку</div>
+        </div>
+
+        <!-- CARD 3: Retention -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3 hover:border-blue-500/40 transition-colors">
+          <div>
+            <h3 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white whitespace-nowrap">Retention 90d</h3>
+            <div class="text-2xl sm:text-3xl font-extrabold text-blue-400 tracking-tight font-mono whitespace-nowrap mt-2">25–30%</div>
+          </div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 leading-snug pt-1">повторная покупка лицензии за&nbsp;квартал</div>
+        </div>
+
+        <!-- CARD 4: Customer LTV -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3 hover:border-purple-500/40 transition-colors">
+          <div>
+            <h3 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white whitespace-nowrap">Customer LTV</h3>
+            <div class="text-2xl sm:text-3xl font-extrabold text-purple-400 tracking-tight font-mono whitespace-nowrap mt-2">~1&nbsp;600&nbsp;₽</div>
+          </div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 leading-snug pt-1">средний платящий, ~2.7 трека по&nbsp;599&nbsp;₽</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER NAV -->
+    <div class="pt-8 border-t border-slate-200 dark:border-surface-borderDark flex flex-col sm:flex-row items-center justify-between gap-4">
+      <a href="/" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-all">
+        Вернуться на&nbsp;главную
+      </a>
+      <a href="/cases/eus-b2b.html" class="text-sm font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors">
+        Следующий кейс — ЕЮС B2B →
+      </a>
+    </div>
+
+    <!-- COPYRIGHT -->
+    <div class="mt-8 pt-8 border-t border-slate-200 dark:border-surface-borderDark text-center text-xs font-mono text-slate-500 dark:text-slate-400">
+      © 2026 Егор Якоби • Product & Interface Designer
+    </div>
+
+  </main>
+
+  <script>
+    (function() {
+      const container = document.getElementById('beforeAfterSlider');
+      const handle = document.getElementById('sliderHandle');
+      const scrollArea = document.getElementById('sliderScrollArea');
+      if (!container || !handle) return;
+      let isDragging = false;
+
+      function updateScrollbarWidth() {
+        if (!scrollArea) return;
+        const sbWidth = Math.max(0, scrollArea.offsetWidth - scrollArea.clientWidth);
+        container.style.setProperty('--sb-width', sbWidth + 'px');
+      }
+      updateScrollbarWidth();
+      window.addEventListener('resize', updateScrollbarWidth);
+      if (window.ResizeObserver) {
+        new ResizeObserver(updateScrollbarWidth).observe(scrollArea);
+      }
+
+      function updatePosition(clientX) {
+        const area = scrollArea || container;
+        const rect = area.getBoundingClientRect();
+        const trackWidth = scrollArea ? scrollArea.clientWidth : rect.width;
+        let x = clientX - rect.left;
+        x = Math.max(0, Math.min(x, trackWidth));
+        const pct = ((x / trackWidth) * 100).toFixed(2);
+        container.style.setProperty('--pos', pct + '%');
+      }
+
+      handle.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        handle.setPointerCapture(e.pointerId);
+        e.stopPropagation();
+      });
+
+      container.addEventListener('pointerdown', (e) => {
+        if (e.target !== handle && !handle.contains(e.target)) {
+          isDragging = true;
+          handle.setPointerCapture(e.pointerId);
+          updatePosition(e.clientX);
+        }
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        if (isDragging) updatePosition(e.clientX);
+      });
+
+      const stopDragging = (e) => {
+        if (isDragging && e && e.pointerId) {
+          try { handle.releasePointerCapture(e.pointerId); } catch(_) {}
+        }
+        isDragging = false;
+      };
+
+      window.addEventListener('pointerup', stopDragging);
+      window.addEventListener('pointercancel', stopDragging);
+
+      // Synchronized scroll with bottom clamping for the shorter old site
+      const oldImg = document.getElementById('oldSiteImg');
+      const newImg = document.getElementById('newSiteImg');
+
+      function syncScroll() {
+        if (!scrollArea || !oldImg) return;
+        updateScrollbarWidth();
+        const S = scrollArea.scrollTop;
+        const viewH = scrollArea.clientHeight;
+        const oldH = oldImg.offsetHeight || oldImg.getBoundingClientRect().height;
+        const maxOldScroll = Math.max(0, oldH - viewH);
+
+        if (S > maxOldScroll) {
+          // Старая страница дошла до футера: фиксируем её на месте
+          oldImg.style.transform = `translateY(${S - maxOldScroll}px)`;
+        } else {
+          // Идём вместе синхронно
+          oldImg.style.transform = 'translateY(0px)';
+        }
+      }
+
+      if (scrollArea) {
+        scrollArea.addEventListener('scroll', syncScroll, { passive: true });
+        window.addEventListener('resize', syncScroll);
+        if (oldImg) {
+          if (oldImg.complete) syncScroll();
+          else oldImg.addEventListener('load', syncScroll);
+        }
+        if (newImg) {
+          if (newImg.complete) syncScroll();
+          else newImg.addEventListener('load', syncScroll);
+        }
+      }
+    })();
+
+    // PLAYER BEFORE / AFTER COMPARISON SLIDER
+    (function() {
+      const container = document.getElementById('playerBeforeAfterSlider');
+      const handle = document.getElementById('playerSliderHandle');
+      if (!container || !handle) return;
+      let isDragging = false;
+
+      function updatePosition(clientX) {
+        const rect = container.getBoundingClientRect();
+        let x = clientX - rect.left;
+        x = Math.max(0, Math.min(x, rect.width));
+        const pct = ((x / rect.width) * 100).toFixed(2);
+        container.style.setProperty('--pos', pct + '%');
+      }
+
+      handle.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        handle.setPointerCapture(e.pointerId);
+        e.stopPropagation();
+      });
+
+      container.addEventListener('pointerdown', (e) => {
+        if (e.target !== handle && !handle.contains(e.target)) {
+          isDragging = true;
+          handle.setPointerCapture(e.pointerId);
+          updatePosition(e.clientX);
+        }
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        if (isDragging) updatePosition(e.clientX);
+      });
+
+      const stopDragging = (e) => {
+        if (isDragging && e && e.pointerId) {
+          try { handle.releasePointerCapture(e.pointerId); } catch(_) {}
+        }
+        isDragging = false;
+      };
+
+      window.addEventListener('pointerup', stopDragging);
+      window.addEventListener('pointercancel', stopDragging);
+    })();
+
+    // CATALOG BEFORE / AFTER COMPARISON SLIDER
+    (function() {
+      const container = document.getElementById('catalogBeforeAfterSlider');
+      const handle = document.getElementById('catalogSliderHandle');
+      const scrollArea = document.getElementById('catalogSliderScrollArea');
+      if (!container || !handle) return;
+      let isDragging = false;
+
+      function updateScrollbarWidth() {
+        if (!scrollArea) return;
+        const sbWidth = Math.max(0, scrollArea.offsetWidth - scrollArea.clientWidth);
+        container.style.setProperty('--sb-width', sbWidth + 'px');
+      }
+      updateScrollbarWidth();
+      window.addEventListener('resize', updateScrollbarWidth);
+      if (window.ResizeObserver) {
+        new ResizeObserver(updateScrollbarWidth).observe(scrollArea);
+      }
+
+      function updatePosition(clientX) {
+        const area = scrollArea || container;
+        const rect = area.getBoundingClientRect();
+        const trackWidth = scrollArea ? scrollArea.clientWidth : rect.width;
+        let x = clientX - rect.left;
+        x = Math.max(0, Math.min(x, trackWidth));
+        const pct = ((x / trackWidth) * 100).toFixed(2);
+        container.style.setProperty('--pos', pct + '%');
+      }
+
+      handle.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        handle.setPointerCapture(e.pointerId);
+        e.stopPropagation();
+      });
+
+      container.addEventListener('pointerdown', (e) => {
+        if (e.target !== handle && !handle.contains(e.target)) {
+          isDragging = true;
+          handle.setPointerCapture(e.pointerId);
+          updatePosition(e.clientX);
+        }
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        if (isDragging) updatePosition(e.clientX);
+      });
+
+      const stopDragging = (e) => {
+        if (isDragging && e && e.pointerId) {
+          try { handle.releasePointerCapture(e.pointerId); } catch(_) {}
+        }
+        isDragging = false;
+      };
+
+      window.addEventListener('pointerup', stopDragging);
+      window.addEventListener('pointercancel', stopDragging);
+
+      // Synchronized scroll with bottom clamping for the shorter NEW catalog (dark right side)
+      const oldImg = document.getElementById('oldCatalogImg');
+      const newImg = document.getElementById('newCatalogImg');
+
+      function syncScroll() {
+        if (!scrollArea || !newImg) return;
+        updateScrollbarWidth();
+        const S = scrollArea.scrollTop;
+        const viewH = scrollArea.clientHeight;
+        const newH = newImg.offsetHeight || newImg.getBoundingClientRect().height;
+        const maxNewScroll = Math.max(0, newH - viewH);
+
+        if (S > maxNewScroll) {
+          // Чёрная (новая) сторона дошла до своего футера: фиксируем её на месте,
+          // пока белая (старая) сторона продолжает скроллиться дальше до конца
+          newImg.style.transform = `translateY(${S - maxNewScroll}px)`;
+        } else {
+          // Идём вместе синхронно от самого верха
+          newImg.style.transform = 'translateY(0px)';
+        }
+      }
+
+      if (scrollArea) {
+        scrollArea.addEventListener('scroll', syncScroll, { passive: true });
+        window.addEventListener('resize', syncScroll);
+        if (oldImg) {
+          if (oldImg.complete) syncScroll();
+          else oldImg.addEventListener('load', syncScroll);
+        }
+        if (newImg) {
+          if (newImg.complete) syncScroll();
+          else newImg.addEventListener('load', syncScroll);
+        }
+      }
+    })();
+
+    // SWITCH HERO MODE (DESKTOP / MOBILE)
+    function switchHeroMode(mode) {
+      const desktopBtn = document.getElementById('heroModeBtn-desktop');
+      const mobileBtn = document.getElementById('heroModeBtn-mobile');
+      const desktopContainer = document.getElementById('heroContainerDesktop');
+      const mobileContainer = document.getElementById('heroContainerMobile');
+      if (!desktopBtn || !mobileBtn || !desktopContainer || !mobileContainer) return;
+
+      const activeClass = 'p-2 sm:p-2.5 rounded-lg transition-all flex items-center justify-center bg-purple-600 text-white shadow-md shadow-purple-600/30';
+      const inactiveClass = 'p-2 sm:p-2.5 rounded-lg transition-all flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/50';
+
+      if (mode === 'desktop') {
+        desktopBtn.className = activeClass;
+        mobileBtn.className = inactiveClass;
+        desktopContainer.classList.remove('hidden');
+        mobileContainer.classList.add('hidden');
+        window.dispatchEvent(new Event('resize'));
+        document.getElementById('beforeAfterSlider')?._restartAutoSlider?.();
+      } else {
+        mobileBtn.className = activeClass;
+        desktopBtn.className = inactiveClass;
+        mobileContainer.classList.remove('hidden');
+        desktopContainer.classList.add('hidden');
+        window.dispatchEvent(new Event('resize'));
+        if (typeof initMobileHeroSlider === 'function') initMobileHeroSlider();
+        document.getElementById('mobileHeroSlider')?._restartAutoSlider?.();
+      }
+    }
+
+    // MOBILE HERO BEFORE / AFTER SLIDER
+    let mobileHeroSliderInitialized = false;
+    function initMobileHeroSlider() {
+      if (mobileHeroSliderInitialized) return;
+      const container = document.getElementById('mobileHeroSlider');
+      const handle = document.getElementById('mobileHeroSliderHandle');
+      if (!container || !handle) return;
+      mobileHeroSliderInitialized = true;
+
+      let isDragging = false;
+
+      function updatePosition(clientX) {
+        const rect = container.getBoundingClientRect();
+        let x = clientX - rect.left;
+        x = Math.max(0, Math.min(x, rect.width));
+        const pct = ((x / rect.width) * 100).toFixed(2);
+        container.style.setProperty('--hpos', pct + '%');
+      }
+
+      handle.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        handle.setPointerCapture(e.pointerId);
+        e.stopPropagation();
+      });
+
+      container.addEventListener('pointerdown', (e) => {
+        if (e.target !== handle && !handle.contains(e.target)) {
+          isDragging = true;
+          handle.setPointerCapture(e.pointerId);
+          updatePosition(e.clientX);
+        }
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        if (isDragging) updatePosition(e.clientX);
+      });
+
+      const stopDragging = (e) => {
+        if (isDragging && e && e.pointerId) {
+          try { handle.releasePointerCapture(e.pointerId); } catch(_) {}
+        }
+        isDragging = false;
+      };
+
+      window.addEventListener('pointerup', stopDragging);
+      window.addEventListener('pointercancel', stopDragging);
+    }
+
+    // SWITCH CATALOG MODE (DESKTOP / MOBILE)
+    function switchCatalogMode(mode) {
+      const desktopBtn = document.getElementById('catalogModeBtn-desktop');
+      const mobileBtn = document.getElementById('catalogModeBtn-mobile');
+      const desktopContainer = document.getElementById('catalogContainerDesktop');
+      const mobileContainer = document.getElementById('catalogContainerMobile');
+      if (!desktopBtn || !mobileBtn || !desktopContainer || !mobileContainer) return;
+
+      const activeClass = 'p-2 sm:p-2.5 rounded-lg transition-all flex items-center justify-center bg-purple-600 text-white shadow-md shadow-purple-600/30';
+      const inactiveClass = 'p-2 sm:p-2.5 rounded-lg transition-all flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/50';
+
+      if (mode === 'desktop') {
+        desktopBtn.className = activeClass;
+        mobileBtn.className = inactiveClass;
+        desktopContainer.classList.remove('hidden');
+        mobileContainer.classList.add('hidden');
+        window.dispatchEvent(new Event('resize'));
+        document.getElementById('catalogBeforeAfterSlider')?._restartAutoSlider?.();
+      } else {
+        mobileBtn.className = activeClass;
+        desktopBtn.className = inactiveClass;
+        mobileContainer.classList.remove('hidden');
+        desktopContainer.classList.add('hidden');
+        window.dispatchEvent(new Event('resize'));
+        if (typeof initMobileSlider === 'function') initMobileSlider();
+        document.getElementById('mobileCatalogSlider')?._restartAutoSlider?.();
+      }
+    }
+
+    // MOBILE CATALOG BEFORE / AFTER SLIDER
+    let mobileSliderInitialized = false;
+    function initMobileSlider() {
+      if (mobileSliderInitialized) return;
+      const container = document.getElementById('mobileCatalogSlider');
+      const handle = document.getElementById('mobileCatalogSliderHandle');
+      if (!container || !handle) return;
+      mobileSliderInitialized = true;
+
+      let isDragging = false;
+
+      function updatePosition(clientX) {
+        const rect = container.getBoundingClientRect();
+        let x = clientX - rect.left;
+        x = Math.max(0, Math.min(x, rect.width));
+        const pct = ((x / rect.width) * 100).toFixed(2);
+        container.style.setProperty('--mpos', pct + '%');
+      }
+
+      handle.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        handle.setPointerCapture(e.pointerId);
+        e.stopPropagation();
+      });
+
+      container.addEventListener('pointerdown', (e) => {
+        if (e.target !== handle && !handle.contains(e.target)) {
+          isDragging = true;
+          handle.setPointerCapture(e.pointerId);
+          updatePosition(e.clientX);
+        }
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        if (isDragging) updatePosition(e.clientX);
+      });
+
+      const stopDragging = (e) => {
+        if (isDragging && e && e.pointerId) {
+          try { handle.releasePointerCapture(e.pointerId); } catch(_) {}
+        }
+        isDragging = false;
+      };
+
+      window.addEventListener('pointerup', stopDragging);
+      window.addEventListener('pointercancel', stopDragging);
+    }
+
+    // ========================================================
+    // UNIVERSAL AUTO-SLIDER CONTROLLER (Smooth Back & Forth Glide Every 4s)
+    // ========================================================
+    function attachAutoSlider(container, handle, cssVarName = '--pos') {
+      if (!container || !handle) return;
+
+      let animFrameId = null;
+      let isUserInteracting = false;
+      let resumeTimer = null;
+      let isVisible = false;
+      let isCycleRunning = false;
+
+      function getPos() {
+        const val = container.style.getPropertyValue(cssVarName);
+        if (!val) return 90;
+        const num = parseFloat(val);
+        return isNaN(num) ? 90 : num;
+      }
+
+      function setPos(pct) {
+        container.style.setProperty(cssVarName, pct.toFixed(2) + '%');
+      }
+
+      // Smooth acceleration and deceleration (ease-in-out cubic)
+      function easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      }
+
+      function animateTween(from, to, durationMs) {
+        return new Promise((resolve) => {
+          const startTime = performance.now();
+          function step(now) {
+            if (isUserInteracting || !isVisible) {
+              resolve(false);
+              return;
+            }
+            const elapsed = now - startTime;
+            const progress = Math.min(1, elapsed / durationMs);
+            const eased = easeInOutCubic(progress);
+            const current = from + (to - from) * eased;
+            setPos(current);
+
+            if (progress < 1) {
+              animFrameId = requestAnimationFrame(step);
+            } else {
+              setPos(to);
+              resolve(true);
+            }
+          }
+          animFrameId = requestAnimationFrame(step);
+        });
+      }
+
+      async function triggerStep() {
+        if (isCycleRunning || isUserInteracting || !isVisible) return;
+        isCycleRunning = true;
+
+        const current = getPos();
+        // Если ползунок ближе к 90% (ДО), плавно едем налево к 10% (СТАЛО).
+        // Если ближе к 10% (СТАЛО), плавно едем направо к 90% (ДО).
+        const target = current > 50 ? 10 : 90;
+
+        const ok = await animateTween(current, target, 1800);
+        isCycleRunning = false;
+
+        if (ok) {
+          // Стоим ровно 4 секунды в новой позиции, затем едем в противоположную сторону
+          scheduleNext(4000);
+        }
+      }
+
+      function scheduleNext(delayMs = 4000) {
+        clearTimeout(resumeTimer);
+        if (animFrameId) cancelAnimationFrame(animFrameId);
+        isCycleRunning = false;
+
+        resumeTimer = setTimeout(() => {
+          if (!isUserInteracting && isVisible) {
+            triggerStep();
+          }
+        }, delayMs);
+      }
+
+      function onUserStart() {
+        isUserInteracting = true;
+        if (animFrameId) cancelAnimationFrame(animFrameId);
+        clearTimeout(resumeTimer);
+        isCycleRunning = false;
+      }
+
+      function onUserEnd() {
+        isUserInteracting = false;
+        scheduleNext(4000);
+      }
+
+      handle.addEventListener('pointerdown', onUserStart);
+      container.addEventListener('pointerdown', onUserStart);
+      window.addEventListener('pointerup', onUserEnd);
+      window.addEventListener('pointercancel', onUserEnd);
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const isHiddenByParent = !!container.closest('.hidden');
+          isVisible = entry.isIntersecting && !isHiddenByParent;
+          if (isVisible) {
+            scheduleNext(4000);
+          } else {
+            if (animFrameId) cancelAnimationFrame(animFrameId);
+            clearTimeout(resumeTimer);
+            isCycleRunning = false;
+          }
+        });
+      }, { threshold: 0.15 });
+
+      observer.observe(container);
+
+      // Hook to wake up when mobile/desktop tab toggles
+      container._restartAutoSlider = () => {
+        const isHiddenByParent = !!container.closest('.hidden');
+        if (!isHiddenByParent) {
+          isVisible = true;
+          scheduleNext(4000);
+        }
+      };
+    }
+
+    // Attach auto-slider to all 5 before/after comparisons
+    initMobileHeroSlider();
+    initMobileSlider();
+
+    attachAutoSlider(document.getElementById('beforeAfterSlider'), document.getElementById('sliderHandle'), '--pos');
+    attachAutoSlider(document.getElementById('mobileHeroSlider'), document.getElementById('mobileHeroSliderHandle'), '--hpos');
+    attachAutoSlider(document.getElementById('playerBeforeAfterSlider'), document.getElementById('playerSliderHandle'), '--pos');
+    attachAutoSlider(document.getElementById('catalogBeforeAfterSlider'), document.getElementById('catalogSliderHandle'), '--pos');
+    attachAutoSlider(document.getElementById('mobileCatalogSlider'), document.getElementById('mobileCatalogSliderHandle'), '--mpos');
+
+    function toggleHypotheses() {
+      const container = document.getElementById('moreHypotheses');
+      const text = document.getElementById('toggleHypothesesText');
+      const icon = document.getElementById('toggleHypothesesIcon');
+      if (!container || !text || !icon) return;
+      const isHidden = container.classList.contains('hidden');
+      if (isHidden) {
+        container.classList.remove('hidden');
+        text.textContent = 'Свернуть список гипотез';
+        icon.classList.add('rotate-180');
+      } else {
+        container.classList.add('hidden');
+        text.textContent = 'Показать все 13 гипотез';
+        icon.classList.remove('rotate-180');
+        document.getElementById('custdev').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function toggleJobStories() {
+      const container = document.getElementById('jobStoriesContainer');
+      const text = document.getElementById('toggleJobStoriesText');
+      const icon = document.getElementById('toggleJobStoriesIcon');
+      if (!container || !text || !icon) return;
+      const isHidden = container.classList.contains('hidden');
+      if (isHidden) {
+        container.classList.remove('hidden');
+        text.textContent = 'Свернуть Job Stories';
+        icon.classList.add('rotate-180');
+      } else {
+        container.classList.add('hidden');
+        text.textContent = 'Показать Job Stories';
+        icon.classList.remove('rotate-180');
+        document.getElementById('jobstories').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function switchDsTab(tabKey) {
+      const tabs = ['buttons', 'cards', 'mobile', 'overview'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('dsTabBtn-' + t);
+        const panel = document.getElementById('dsPanel-' + t);
+        if (!btn || !panel) return;
+        if (t === tabKey) {
+          btn.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap bg-purple-600 text-white shadow-lg shadow-purple-600/30 border border-purple-500';
+          panel.classList.remove('hidden');
+        } else {
+          btn.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap bg-slate-100 dark:bg-surface-cardDark text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-surface-borderDark';
+          panel.classList.add('hidden');
+        }
+      });
+    }
+
+    // DESIGN SYSTEM LIGHTBOX GALLERY
+    const dsGalleryItems = [
+      { src: '/assets/soundpower/Buttons.png', title: 'UI / Buttons' },
+      { src: '/assets/soundpower/Accordion.png', title: 'UI / Accordion' },
+      { src: '/assets/soundpower/Cards.webp', title: 'UI / Cards' },
+      { src: '/assets/soundpower/Mobile.png', title: 'UI / Mobile' },
+      { src: '/assets/soundpower/UI.webp', title: 'И многое другое' }
+    ];
+
+    let currentDsIndex = 0;
+
+    function openDsLightbox(index) {
+      currentDsIndex = index;
+      updateDsLightbox();
+      const modal = document.getElementById('dsLightboxModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDsLightbox() {
+      const modal = document.getElementById('dsLightboxModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    function stepDsLightbox(dir) {
+      currentDsIndex = (currentDsIndex + dir + dsGalleryItems.length) % dsGalleryItems.length;
+      updateDsLightbox();
+    }
+
+    function updateDsLightbox() {
+      const item = dsGalleryItems[currentDsIndex];
+      const img = document.getElementById('dsLightboxImg');
+      const title = document.getElementById('dsLightboxTitle');
+      const counter = document.getElementById('dsLightboxCounter');
+      img.src = item.src;
+      img.alt = item.title;
+      title.textContent = item.title;
+      counter.textContent = (currentDsIndex + 1) + ' / ' + dsGalleryItems.length;
+    }
+
+    window.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('dsLightboxModal');
+      if (!modal || modal.classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeDsLightbox();
+      else if (e.key === 'ArrowLeft') stepDsLightbox(-1);
+      else if (e.key === 'ArrowRight') stepDsLightbox(1);
+    });
+
+    // SCROLL TO TOP ANCHOR HANDLER
+    function scrollToTop(e) {
+      if (e) e.preventDefault();
+      history.replaceState(null, '', '#top');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('scrollToTopBtn');
+      if (!btn) return;
+      if (window.scrollY > 400) {
+        btn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none', 'scale-90');
+        btn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto', 'scale-100');
+      } else {
+        btn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto', 'scale-100');
+        btn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none', 'scale-90');
+      }
+    }, { passive: true });
+
+    // FIGJAM USERFLOW FULLSCREEN HANDLER
+    function toggleFlowFullscreen() {
+      const container = document.getElementById('flowFrameContainer');
+      if (!container) return;
+      const isFs = Boolean(document.fullscreenElement || document.webkitFullscreenElement);
+      if (!isFs) {
+        if (container.requestFullscreen) {
+          container.requestFullscreen();
+        } else if (container.webkitRequestFullscreen) {
+          container.webkitRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      }
+    }
+
+    function updateFlowFullscreenUI() {
+      const isFs = Boolean(document.fullscreenElement || document.webkitFullscreenElement);
+      const expandIcon = document.getElementById('fsExpandIcon');
+      const compressIcon = document.getElementById('fsCompressIcon');
+      const btn = document.getElementById('flowFullscreenBtn');
+      if (expandIcon) expandIcon.classList.toggle('hidden', isFs);
+      if (compressIcon) compressIcon.classList.toggle('hidden', !isFs);
+      if (btn) btn.setAttribute('title', isFs ? 'Свернуть (Esc)' : 'На весь экран');
+    }
+
+    document.addEventListener('fullscreenchange', updateFlowFullscreenUI);
+    document.addEventListener('webkitfullscreenchange', updateFlowFullscreenUI);
+
+    // ACTIVE STICKY RAIL NAV OBSERVER
+    (function initRailObserver() {
+      const sections = ['intro', 'custdev', 'jobstories', 'interaction', 'hover-demo', 'player', 'design-system', 'forecast'];
+      const railItems = document.querySelectorAll('aside a.rail-item');
+      if (!railItems.length) return;
+
+      const lastId = sections[sections.length - 1];
+      let currentActiveId = sections[0];
+
+      function setActive(id) {
+        railItems.forEach(item => {
+          const href = item.getAttribute('href');
+          const dot = item.querySelector('.rail-dot');
+          const isActive = href === '#' + id;
+          if (isActive) {
+            item.classList.add('text-purple-400');
+            item.classList.remove('text-slate-400');
+            if (dot) dot.classList.add('active');
+          } else {
+            item.classList.remove('text-purple-400');
+            item.classList.add('text-slate-400');
+            if (dot) dot.classList.remove('active');
+          }
+        });
+      }
+
+      function updateActive() {
+        const atBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 80);
+        if (atBottom) {
+          setActive(lastId);
+        } else {
+          setActive(currentActiveId);
+        }
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            currentActiveId = entry.target.id;
+          }
+        });
+        updateActive();
+      }, {
+        rootMargin: '-20% 0px -50% 0px',
+        threshold: 0
+      });
+
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+
+      window.addEventListener('scroll', updateActive, { passive: true });
+      window.addEventListener('resize', updateActive, { passive: true });
+    })();
+
+    // Scroll-triggered Reveal Observer (buttery smooth entrance)
+    (function initCaseReveals() {
+      const items = document.querySelectorAll('.case-reveal');
+      if (!items.length) return;
+
+      if (!('IntersectionObserver' in window)) {
+        items.forEach(el => el.classList.add('is-visible'));
+        return;
+      }
+
+      const obs = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        root: null,
+        rootMargin: '0px 0px -40px 0px',
+        threshold: 0.05
+      });
+
+      items.forEach(el => obs.observe(el));
+
+      requestAnimationFrame(() => {
+        items.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight) {
+            el.classList.add('is-visible');
+          }
+        });
+      });
+    })();
+
+    // Smooth Page Transition Loader
+    (function() {
+      const tLoader = document.getElementById('case-transition-loader');
+      const tTitle = document.getElementById('case-loader-title');
+      const tSpinner = document.getElementById('case-loader-spinner');
+      const tGlow = document.getElementById('case-loader-glow');
+
+      document.addEventListener('click', (e) => {
+        const link = e.target.closest('a[href^="/"], a[href^="cases/"]');
+        if (!link) return;
+        if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || link.target === '_blank') return;
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('#')) return;
+
+        e.preventDefault();
+
+        let title = 'Загрузка...';
+        let ringColor = 'border-t-blue-500';
+        let glowColor = 'bg-blue-500/25';
+
+        if (href.includes('eus-b2b')) {
+          title = 'Открываем: ЕЮС B2B';
+          ringColor = 'border-t-blue-500';
+          glowColor = 'bg-blue-500/25';
+        } else if (href.includes('lootkeeper')) {
+          title = 'Открываем: Lootkeeper';
+          ringColor = 'border-t-amber-500';
+          glowColor = 'bg-amber-500/25';
+        } else if (href.includes('soundpower')) {
+          title = 'Открываем: SoundPower';
+          ringColor = 'border-t-purple-500';
+          glowColor = 'bg-purple-500/25';
+        } else if (href === '/' || href.includes('#cases') || href.startsWith('/#')) {
+          title = 'Возвращаемся на главную';
+          ringColor = 'border-t-purple-500';
+          glowColor = 'bg-purple-500/25';
+        }
+
+        if (tTitle) tTitle.textContent = title;
+        if (tSpinner) tSpinner.className = `w-10 h-10 rounded-full border-2 border-slate-200 dark:border-white/10 ${ringColor} animate-spin`;
+        if (tGlow) tGlow.className = `absolute w-5 h-5 rounded-full ${glowColor} blur-sm`;
+
+        if (tLoader) {
+          tLoader.classList.remove('opacity-0', 'pointer-events-none');
+          tLoader.classList.add('opacity-100', 'pointer-events-auto');
+        }
+
+        setTimeout(() => {
+          window.location.href = href;
+        }, 180);
+      });
+
+      window.addEventListener('pageshow', () => {
+        if (tLoader) {
+          tLoader.classList.add('opacity-0', 'pointer-events-none');
+          tLoader.classList.remove('opacity-100', 'pointer-events-auto');
+        }
+      });
+    })();
+  </script>
+
+  <!-- PAGE TRANSITION LOADER -->
+  <div id="case-transition-loader" class="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-white/80 dark:bg-[#08090d]/85 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-200 ease-out select-none">
+    <div class="relative flex items-center justify-center mb-3.5">
+      <div id="case-loader-spinner" class="w-10 h-10 rounded-full border-2 border-slate-200 dark:border-white/10 border-t-purple-500 animate-spin"></div>
+      <div id="case-loader-glow" class="absolute w-5 h-5 rounded-full bg-purple-500/25 blur-sm"></div>
+    </div>
+    <div class="flex items-center gap-1.5 text-slate-800 dark:text-slate-200 font-mono text-xs sm:text-sm font-semibold tracking-wider">
+      <span id="case-loader-title">Загрузка</span><span class="inline-block w-4 text-left animate-pulse">...</span>
+    </div>
+  </div>
+
+  <!-- SCROLL TO TOP BUTTON (ANCHOR) -->
+  <a href="#top" id="scrollToTopBtn" onclick="scrollToTop(event)" aria-label="Вернуться в начало страницы" title="Наверх" class="fixed bottom-6 sm:bottom-8 z-40 w-12 h-12 rounded-full bg-slate-900/80 dark:bg-[#13111c]/80 hover:bg-purple-600 text-slate-400 hover:text-white dark:text-purple-300 dark:hover:text-white shadow-lg backdrop-blur-md flex items-center justify-center transition-all duration-300 opacity-0 translate-y-4 pointer-events-none scale-90 hover:scale-110 active:scale-95 border border-purple-500/25 hover:border-purple-400 group" style="right: max(1rem, calc((100vw - 56rem) / 2 - 5.75rem));">
+    <svg class="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+    </svg>
+  </a>
+
+  <!-- DESIGN SYSTEM LIGHTBOX MODAL -->
+  <div id="dsLightboxModal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md hidden items-center justify-center p-3 sm:p-6 transition-opacity select-none" onclick="if(event.target === this) closeDsLightbox();">
+    <!-- Close button -->
+    <button type="button" onclick="closeDsLightbox()" class="absolute top-4 right-4 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xl transition-colors border border-white/10" title="Закрыть (Esc)">
+      ✕
+    </button>
+
+    <!-- Top info bar -->
+    <div class="absolute top-4 left-4 sm:left-6 z-20 font-mono text-xs text-slate-300 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 flex items-center gap-2">
+      <span id="dsLightboxTitle" class="font-bold text-white"></span>
+      <span class="text-slate-500">•</span>
+      <span id="dsLightboxCounter" class="text-purple-400 font-semibold"></span>
+    </div>
+
+    <!-- Prev button -->
+    <button type="button" onclick="stepDsLightbox(-1)" class="absolute left-3 sm:left-6 z-20 w-12 h-12 rounded-full bg-black/50 hover:bg-white/20 text-white flex items-center justify-center text-3xl transition-colors border border-white/10 shadow-2xl" title="Предыдущий фрейм (←)">
+      ‹
+    </button>
+
+    <!-- Image container -->
+    <div class="max-w-[95vw] max-h-[88vh] flex items-center justify-center overflow-auto no-scrollbar py-2" onclick="if(event.target === this) closeDsLightbox();">
+      <img id="dsLightboxImg" src="" alt="" class="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl transition-all">
+    </div>
+
+    <!-- Next button -->
+    <button type="button" onclick="stepDsLightbox(1)" class="absolute right-3 sm:right-6 z-20 w-12 h-12 rounded-full bg-black/50 hover:bg-white/20 text-white flex items-center justify-center text-3xl transition-colors border border-white/10 shadow-2xl" title="Следующий фрейм (→)">
+      ›
+    </button>
+
+    <!-- Bottom helper hint -->
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 hidden sm:block text-xs font-mono text-slate-400 bg-black/50 backdrop-blur-sm px-3.5 py-1 rounded-full border border-white/5">
+      Стрелки ← / → для переключения • Esc для закрытия
+    </div>
+  </div>
+
+</body>
+</html>

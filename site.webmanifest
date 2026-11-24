@@ -1,0 +1,30 @@
+{
+  "name": "Егор Якоби | Продуктовый дизайнер",
+  "short_name": "Егор Якоби",
+  "description": "Портфолио продуктового дизайнера Егора Якоби. B2B, CustDev, Figma Design Systems.",
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/assets/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#08090d",
+  "background_color": "#08090d",
+  "display": "standalone"
+}

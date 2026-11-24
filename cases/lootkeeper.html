@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lootkeeper — Редизайн игровой медиа-платформы и базы гайдов | Кейс Егора Якоби</title>
+  <meta name="description" content="Кейс продуктового дизайнера Егора Якоби: глубокий редизайн базы знаний и гайдов Lootkeeper. Устранение эффекта «простыни», sticky-навигация лонгридов, mobile-first как драйвер Retention, смарт-поиск предметов и система репутации.">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#08090d">
+
+  <!-- Open Graph / Telegram / LinkedIn / VK -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://yakogo.ru/cases/lootkeeper.html">
+  <meta property="og:site_name" content="Портфолио Егора Якоби">
+  <meta property="og:title" content="Lootkeeper — Редизайн игровой платформы | Кейс Егора Якоби">
+  <meta property="og:description" content="Глубокий редизайн базы знаний и гайдов Lootkeeper: устранение «простыни», sticky-навигация лонгридов, mobile-first, смарт-поиск и дизайн-система.">
+  <meta property="og:image" content="https://yakogo.ru/assets/lootkeeper/og-preview.png">
+  <meta property="og:image:secure_url" content="https://yakogo.ru/assets/lootkeeper/og-preview.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Lootkeeper — Редизайн игровой платформы">
+  <meta property="og:locale" content="ru_RU">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Lootkeeper — Редизайн игровой платформы | Кейс Егора Якоби">
+  <meta name="twitter:description" content="Глубокий редизайн базы знаний и гайдов Lootkeeper: устранение «простыни», sticky-навигация лонгридов, mobile-first.">
+  <meta name="twitter:image" content="https://yakogo.ru/assets/lootkeeper/og-preview.png">
+
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+      m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+      k=e.createElement(t),a=e.getElementsByTagName(0)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113725984', 'ym');
+
+    ym(113725984, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer"});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/113725984" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <link rel="preload" href="/assets/fonts/Bounded_Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/Bounded_ExtraLight.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>try { sessionStorage.setItem('site_nav_active', '1'); } catch(e) {}</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['"Bounded"', 'system-ui', 'sans-serif'],
+            sans: ['"Onest"', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            surface: {
+              light: '#f8fafc',
+              dark: '#08090d',
+              cardDark: '#10131d',
+              cardDarkHover: '#161b2a',
+              borderDark: '#1d2336',
+            },
+            amber: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @font-face {
+      font-family: 'Bounded';
+      src: url('/assets/fonts/Bounded_Regular.woff2') format('woff2');
+      font-weight: 400 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Bounded';
+      src: url('/assets/fonts/Bounded_ExtraLight.woff2') format('woff2');
+      font-weight: 200 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    h1, h2, h3, .font-heading {
+      font-family: 'Bounded', system-ui, sans-serif;
+      letter-spacing: -0.015em;
+    }
+    html, body, button, a, [role="button"], .cursor-pointer {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M1 1L16.5 11.5L9 12.5L5.5 20L1 1Z' fill='%23000000' stroke='%23ffffff' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 1 1, auto !important;
+    }
+
+    .cursor-zoom-in, .cursor-zoom-in * {
+      cursor: zoom-in !important;
+    }
+
+    /* Sticky side nav dots */
+    .rail-dot.active {
+      background-color: #f59e0b;
+      box-shadow: 0 0 10px #f59e0b;
+    }
+
+    /* Buttery Smooth Page Entrance Animations (inspired by isukharkov.ru/rwb) */
+    @keyframes pageEnterFadeUp {
+      from {
+        opacity: 0.001;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes headerEnterFadeDown {
+      from {
+        opacity: 0.001;
+        transform: translateY(-8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    header.sticky {
+      animation: headerEnterFadeDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .hero-stagger-1 {
+      animation: pageEnterFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.04s both;
+    }
+    .hero-stagger-2 {
+      animation: pageEnterFadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+    }
+    .hero-stagger-3 {
+      animation: pageEnterFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+    }
+    .hero-stagger-4 {
+      animation: pageEnterFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
+    }
+
+    /* Scroll-triggered Reveal for subsequent sections */
+    .case-reveal {
+      opacity: 0.001;
+      transform: translateY(22px);
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .case-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      header.sticky, .hero-stagger-1, .hero-stagger-2, .hero-stagger-3, .hero-stagger-4, .case-reveal {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+
+    #sliderScrollArea::-webkit-scrollbar {
+      width: 7px;
+    }
+    #sliderScrollArea::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    #sliderScrollArea::-webkit-scrollbar-thumb {
+      background: rgba(245, 158, 11, 0.4);
+      border-radius: 4px;
+    }
+
+    #sliderScrollArea::-webkit-scrollbar-thumb:hover {
+      background: rgba(245, 158, 11, 0.7);
+    }
+
+    /* Hide scrollbars inside mobile phone mockup so width is 100% and aligned */
+    #mobileHeroSliderScrollArea,
+    #mobileGuideScrollContainer {
+      overscroll-behavior: contain;
+    }
+    #mobileHeroSliderScrollArea,
+    #mobileGuideScrollContainer,
+    .no-scrollbar {
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
+    #mobileHeroSliderScrollArea::-webkit-scrollbar,
+    #mobileGuideScrollContainer::-webkit-scrollbar,
+    .no-scrollbar::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+
+
+  </style>
+</head>
+<body id="top" class="bg-surface-light dark:bg-surface-dark text-slate-900 dark:text-slate-100 antialiased min-h-screen transition-colors duration-200 selection:bg-amber-500 selection:text-black">
+
+  <!-- TOP BAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-surface-dark/85 border-b border-slate-200/80 dark:border-surface-borderDark/80">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="/#cases" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-amber-500 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        Все кейсы
+      </a>
+
+      <div class="text-[13px] sm:text-[15px] font-sans text-slate-500 dark:text-slate-400 flex items-center gap-2 select-none">
+        <a href="https://t.me/dakingo" target="_blank" class="hover:text-slate-900 dark:hover:text-white transition-colors">telegram</a>
+        <span class="text-slate-400 dark:text-slate-600 font-light">/</span>
+        <a href="https://max.ru/u/f9LHodD0cOLSijFJIunj_Q_e7ZLL4fT3aKAupDufMfPKdVHqm0YZG5NdNfo" target="_blank" class="hover:text-slate-900 dark:hover:text-white transition-colors">max</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- STICKY RAIL NAV (DESKTOP) -->
+  <aside class="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-end gap-2.5 text-xs font-mono text-slate-400 pointer-events-auto">
+    <a href="#intro" class="rail-item hover:text-amber-400 flex items-center gap-2 transition-colors">
+      <span>интро</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+    <a href="#about" class="rail-item hover:text-amber-400 flex items-center gap-2 transition-colors">
+      <span>о платформе</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+    <a href="#problem" class="rail-item hover:text-amber-400 flex items-center gap-2 transition-colors">
+      <span>проблема</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+    <a href="#research" class="rail-item hover:text-amber-400 flex items-center gap-2 transition-colors">
+      <span>исследование</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+    <a href="#architecture" class="rail-item hover:text-amber-400 flex items-center gap-2 transition-colors">
+      <span>эргономика гайда</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+    <a href="#mobile" class="rail-item hover:text-amber-400 flex items-center gap-2 transition-colors">
+      <span>mobile-first</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+    <a href="#search" class="rail-item hover:text-amber-400 flex items-center gap-2 transition-colors">
+      <span>смарт-поиск</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+    <a href="#community" class="rail-item hover:text-amber-400 flex items-center gap-2 transition-colors">
+      <span>комьюнити & cta</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+    <a href="#design-system" class="rail-item hover:text-amber-400 flex items-center gap-2 transition-colors">
+      <span>дизайн-система</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+    <a href="#results" class="rail-item hover:text-amber-400 flex items-center gap-2 transition-colors">
+      <span>результаты</span>
+      <span class="rail-dot w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+    </a>
+  </aside>
+
+  <!-- MAIN CASE CONTENT -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+    
+    <!-- HEADER: TITLE & 4 BULLETS SUMMARY (EXECUTIVE SUMMARY) -->
+    <section id="intro" class="mb-[120px]">
+      <div class="hero-stagger-1">
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+          <span class="px-2.5 py-1 rounded-[4px] text-xs font-sans font-bold text-white bg-amber-600 shadow-sm">Gaming</span>
+          <span class="px-2.5 py-1 rounded-[4px] text-xs font-sans font-bold text-white bg-purple-600 shadow-sm">Full UX/UI Redesign</span>
+          <span class="px-2.5 py-1 rounded-[4px] text-xs font-sans font-bold text-white bg-blue-600 shadow-sm">Live in Prod</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.18] mb-4">
+          Lootkeeper
+        </h1>
+
+        <p class="text-xl text-slate-500 dark:text-slate-400 font-medium mb-8">
+          Комплексный редизайн медиа-базы знаний и&nbsp;интерактивных билдов по&nbsp;Path of Exile
+        </p>
+      </div>
+
+      <!-- 4 BULLETS (EXECUTIVE SUMMARY) -->
+      <ul class="hero-stagger-2 space-y-3 p-6 sm:p-7 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark mb-8">
+        <li class="flex items-start gap-3 text-sm sm:text-[15px] leading-relaxed text-slate-700 dark:text-slate-300">
+          <span class="mt-2 w-2 h-2 rounded-full bg-amber-500 shrink-0"></span>
+          <span><strong>Анализ рынка и&nbsp;приоритизация фич со&nbsp;стейкхолдером-разработчиком:</strong> декомпозировали идеи основателя, сопоставили с&nbsp;международными бенчмарками (Maxroll, Mobalytics, PoE Vault) и&nbsp;перевели инженерный бэкенд в&nbsp;интуитивный геймерский UX.</span>
+        </li>
+        <li class="flex items-start gap-3 text-sm sm:text-[15px] leading-relaxed text-slate-700 dark:text-slate-300">
+          <span class="mt-2 w-2 h-2 rounded-full bg-amber-500 shrink-0"></span>
+          <span><strong>Ликвидация эффекта «бесконечной простыни» в&nbsp;лонгридах:</strong> спроектировали плавающую консоль (Sticky Navigation) с&nbsp;постоянным скролл-трекингом разделов статьи, быстрыми фильтрами лиги/бюджета и&nbsp;контекстными тултипами предметов.</span>
+        </li>
+        <li class="flex items-start gap-3 text-sm sm:text-[15px] leading-relaxed text-slate-700 dark:text-slate-300">
+          <span class="mt-2 w-2 h-2 rounded-full bg-amber-500 shrink-0"></span>
+          <span><strong>Mobile-first адаптация как&nbsp;главный драйвер Retention:</strong> открыли полноценный мобильный сценарий «почитать билд на&nbsp;диване или&nbsp;в&nbsp;дороге перед запуском игры», что радикально увеличило возвращаемость пользователей (подтверждено владельцем продукта).</span>
+        </li>
+        <li class="flex items-start gap-3 text-sm sm:text-[15px] leading-relaxed text-slate-700 dark:text-slate-300">
+          <span class="mt-2 w-2 h-2 rounded-full bg-amber-500 shrink-0"></span>
+          <span><strong>Мульти-сущностный смарт-поиск и&nbsp;нативная монетизация:</strong> связали поиск по&nbsp;статьям с&nbsp;базой предметов, внедрили социальный контур (личный кабинет, ачивки, карма комментариев) и&nbsp;органические CTA на&nbsp;покупку валюты без&nbsp;баннерной слепоты.</span>
+        </li>
+      </ul>
+
+      <!-- META STRIP -->
+      <div class="hero-stagger-3 flex items-center justify-between gap-4 p-5 rounded-xl bg-slate-100/70 dark:bg-surface-cardDark/50 border border-slate-200 dark:border-surface-borderDark text-xs font-mono mb-8 overflow-x-auto">
+        <div class="shrink-0">
+          <div class="text-slate-500">Год</div>
+          <div class="text-slate-900 dark:text-white font-bold text-sm mt-0.5">2023–2026</div>
+        </div>
+        <div class="shrink-0">
+          <div class="text-slate-500">Роль</div>
+          <div class="text-slate-900 dark:text-white font-bold text-sm mt-0.5">Продуктовый дизайнер</div>
+        </div>
+        <div class="shrink-0">
+          <div class="text-slate-500">Команда</div>
+          <div class="text-slate-900 dark:text-white font-bold text-sm mt-0.5">Дизайнер + Разработчик</div>
+        </div>
+        <div class="shrink-0">
+          <div class="text-slate-500">Ссылки</div>
+          <div class="flex items-center gap-2 mt-0.5">
+            <a href="https://guides.lootkeeper.com/" target="_blank" class="text-amber-400 hover:underline font-bold text-sm inline-flex items-center gap-0.5">
+              Live сайт ↗
+            </a>
+            <span class="text-slate-600">•</span>
+            <a href="https://www.figma.com/design/nboi4khI2F3rs6JvSnXhjw/LootKeeper?node-id=0-1" target="_blank" class="text-amber-400 hover:underline font-bold text-sm inline-flex items-center gap-0.5">
+              Figma ↗
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO SHOWCASE (DESKTOP + MOBILE INTERACTIVE TABS) -->
+      <div class="hero-stagger-4 space-y-4">
+        <!-- VIEWPORT SWITCHER TABS -->
+        <div class="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-surface-cardDark rounded-xl border border-slate-200 dark:border-surface-borderDark w-fit">
+          <button type="button" onclick="switchLootHeroMode('desktop')" id="lootHeroBtn-desktop" class="p-2 sm:p-2.5 rounded-lg transition-all flex items-center justify-center bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20" title="Десктоп">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke-width="2"></rect><line x1="8" y1="21" x2="16" y2="21" stroke-width="2"></line><line x1="12" y1="17" x2="12" y2="21" stroke-width="2"></line></svg>
+          </button>
+          <button type="button" onclick="switchLootHeroMode('mobile')" id="lootHeroBtn-mobile" class="p-2 sm:p-2.5 rounded-lg transition-all flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/50" title="Мобильная">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3" ry="3" stroke-width="2"></rect><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="2.5" stroke-linecap="round"></line></svg>
+          </button>
+        </div>
+
+        <!-- 1. DESKTOP VIEW CONTAINER (BEFORE / AFTER COMPARISON SLIDER) -->
+        <div id="lootHeroContainerDesktop" class="space-y-3">
+          <div id="beforeAfterSlider" class="relative select-none rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 dark:border-surface-borderDark bg-[#08090d] shadow-2xl aspect-[1024/966] w-full group" style="--pos: 90%; --sb-width: 7px;">
+            
+            <!-- ВЕРТИКАЛЬНО СКРОЛЛЯЩИЙСЯ КОНТЕЙНЕР (СИНХРОННЫЙ СКРОЛЛ ОБЕИХ ВЕРСИЙ) -->
+            <div id="sliderScrollArea" class="w-full h-full overflow-y-auto overflow-x-hidden relative scroll-smooth">
+              <div id="scrollContent" class="relative w-full">
+                <!-- СТАЛО (НОВЫЙ ДИЗАЙН LOOTKEEPER — ПОЛНАЯ СТРАНИЦА) -->
+                <img id="newSiteImg" src="/assets/lootkeeper/new-main-desktop-full.jpg?v=2" alt="Lootkeeper — Новый дизайн главной страницы" class="w-full h-auto block select-none pointer-events-none will-change-transform" loading="eager">
+                
+                <!-- БЫЛО (СТАРЫЙ ДИЗАЙН LOOTKEEPER — ПОЛНАЯ СТРАНИЦА) -->
+                <div id="oldSiteClipWrapper" class="absolute inset-0 w-full pointer-events-none overflow-hidden bg-[#08090d]" style="clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0);">
+                  <img id="oldSiteImg" src="/assets/lootkeeper/old-main-desktop.jpg" alt="Lootkeeper — Исходная версия сайта" class="w-full h-auto block select-none pointer-events-none will-change-transform" loading="eager">
+                </div>
+              </div>
+            </div>
+
+            <!-- БЕЙДЖИ ВЕРСИЙ -->
+            <div class="absolute inset-0 pointer-events-none z-20 overflow-hidden" style="clip-path: inset(0 0 0 var(--pos, 50%));">
+              <div class="absolute top-4 right-4 px-3 py-1.5 rounded-full text-xs font-mono font-bold bg-amber-500/90 text-slate-950 shadow-lg backdrop-blur-md border border-amber-400/40">
+                Стало
+              </div>
+            </div>
+            <div class="absolute inset-0 pointer-events-none z-20 overflow-hidden" style="clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0);">
+              <div class="absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-mono font-bold bg-slate-900/90 text-slate-200 border border-slate-700 shadow-lg backdrop-blur-md">
+                Было
+              </div>
+            </div>
+
+            <!-- РАЗДЕЛИТЕЛЬНАЯ ЛИНИЯ И РУЧКА ПОЛЗУНКА -->
+            <div id="sliderDividerTrack" class="absolute inset-y-0 left-0 pointer-events-none z-20" style="right: var(--sb-width, 7px);">
+              <div class="absolute top-0 bottom-0 pointer-events-none" style="left: var(--pos, 50%); transform: translateX(-50%);">
+                <div class="w-0.5 h-full bg-white shadow-[0_0_12px_rgba(0,0,0,0.8)]"></div>
+                <div id="sliderHandle" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white text-slate-900 shadow-2xl border-2 border-amber-500 flex items-center justify-center cursor-ew-resize pointer-events-auto hover:scale-110 active:scale-95 transition-transform touch-none">
+                  <svg class="w-4 h-4 sm:w-5 sm:h-5 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                    <polyline points="9 18 3 12 9 6" transform="translate(18, 24) rotate(180)"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="flex items-center justify-between text-xs text-slate-500 px-2 font-mono">
+            <span>// Тяните ползунок влево-вправо • Скролльте для просмотра всей страницы</span>
+            <span class="text-amber-400 font-bold">Сравнение: Было / Стало</span>
+          </div>
+        </div>
+
+        <!-- 2. MOBILE HERO SLIDER CONTAINER -->
+        <div id="lootHeroContainerMobile" class="hidden space-y-3">
+          <div class="flex justify-center py-2 sm:py-4">
+            <!-- SMARTPHONE MOCKUP FRAME -->
+            <div class="w-full max-w-[360px] sm:max-w-[390px] shrink-0 bg-[#090b10] p-3 sm:p-3.5 rounded-[44px] border-4 border-slate-700/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] relative ring-1 ring-white/10">
+              <!-- DYNAMIC ISLAND / SPEAKER -->
+              <div class="w-28 h-4.5 bg-black rounded-full mx-auto mb-2 flex items-center justify-between px-3">
+                <span class="w-2 h-2 rounded-full bg-slate-900 border border-slate-800"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-[#1e2333]"></span>
+              </div>
+
+              <!-- PHONE SCREEN CONTAINER -->
+              <div id="mobileHeroSlider" class="relative select-none rounded-[28px] overflow-hidden border border-white/10 bg-[#090a0f] shadow-inner h-[580px] sm:h-[660px] group" style="--hpos: 90%;">
+                
+                <!-- VERTICAL SCROLL AREA (СТАЛО) -->
+                <div id="mobileHeroSliderScrollArea" class="w-full h-full overflow-y-auto overflow-x-hidden relative scroll-smooth" style="scrollbar-width: none; -ms-overflow-style: none;">
+                  <div class="relative w-full pointer-events-none">
+                    <img id="mobileHeroNewImg" src="/assets/lootkeeper/main_m_dark.webp" alt="Lootkeeper — Мобильный интерфейс" class="w-full h-auto block select-none pointer-events-none" loading="eager">
+                  </div>
+                </div>
+
+                <!-- БЫЛО (ТЁМНЫЙ ЭКРАН С КРАСНОЙ ПЛАШКОЙ ПО ЦЕНТРУ ЭКРАНА СМАРТФОНА КАК В SOUNDPOWER) -->
+                <div class="absolute inset-0 w-full h-full bg-[#08090d] flex items-center justify-center p-6 text-center pointer-events-none z-10 overflow-hidden" style="clip-path: inset(0 calc(100% - var(--hpos, 50%) - 1px) 0 0);">
+                  <div class="p-4 rounded-2xl bg-rose-950/90 border border-rose-500/50 text-xs sm:text-sm text-rose-200 font-mono shadow-2xl backdrop-blur-md max-w-[280px] leading-relaxed">
+                    ⚠️ Нулевой мобильный адаптив. Сервисом со смартфона пользоваться было невозможно
+                  </div>
+                </div>
+
+                <!-- BADGES -->
+                <div class="absolute inset-0 pointer-events-none z-20 overflow-hidden" style="clip-path: inset(0 0 0 var(--hpos, 50%));">
+                  <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-amber-500/90 text-slate-950 shadow-lg backdrop-blur-md border border-amber-400/40">
+                    Стало
+                  </div>
+                </div>
+                <div class="absolute inset-0 pointer-events-none z-20 overflow-hidden" style="clip-path: inset(0 calc(100% - var(--hpos, 50%)) 0 0);">
+                  <div class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-slate-900/90 text-slate-200 border border-slate-700 shadow-lg backdrop-blur-md">
+                    До
+                  </div>
+                </div>
+
+                <!-- DIVIDER TRACK & HANDLE -->
+                <div class="absolute inset-y-0 left-0 pointer-events-none z-20 w-full">
+                  <div class="absolute top-0 bottom-0 pointer-events-none" style="left: var(--hpos, 50%); transform: translateX(-50%);">
+                    <div class="w-0.5 h-full bg-white shadow-[0_0_10px_rgba(0,0,0,0.8)]"></div>
+                    <div id="mobileHeroSliderHandle" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white text-slate-900 shadow-2xl border-2 border-amber-500 flex items-center justify-center cursor-ew-resize pointer-events-auto hover:scale-110 active:scale-95 transition-transform touch-none">
+                      <svg class="w-3.5 h-3.5 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                        <polyline points="9 18 3 12 9 6" transform="translate(18, 24) rotate(180)"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- HOME INDICATOR -->
+              <div class="w-28 h-1 bg-slate-600 rounded-full mx-auto mt-2.5 pointer-events-none"></div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between text-xs text-slate-500 px-2 font-mono">
+            <span>// Тяните ползунок влево-вправо • Скролльте макет внутри смартфона</span>
+            <span class="text-amber-400 font-bold">Сравнение: Было / Стало</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01. ABOUT: CONTEXT & PRODUCT -->
+    <section id="about" class="case-reveal space-y-6 mb-[100px] text-slate-700 dark:text-slate-300 leading-relaxed text-base">
+      <div>
+        <span class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">// Контекст платформы</span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
+          01. Контекст платформы и предпосылки редизайна
+        </h2>
+      </div>
+
+      <p>
+        <strong>Path of Exile</strong>&nbsp;— одна из&nbsp;самых комплексных ARPG в&nbsp;индустрии: гигантское пассивное дерево на&nbsp;1300+ нод, сотни уникальных камней умений, тысячи предметов экипировки и&nbsp;сезонные лиги с&nbsp;новыми механиками каждые 3–4 месяца. Из-за такой вариативности игроки не&nbsp;могут обойтись без&nbsp;внешних баз знаний и&nbsp;подробных руководств по&nbsp;прокачке персонажей (билдов).
+      </p>
+
+      <div class="p-6 rounded-2xl bg-gradient-to-r from-amber-950/40 via-amber-900/20 to-transparent border border-amber-500/30 text-slate-200">
+        <div class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider mb-2">Контекст продукта:</div>
+        <p class="text-base sm:text-lg italic leading-relaxed text-amber-100">
+          «Lootkeeper изначально создавался разработчиком-энтузиастом как инженерная платформа. Бэкенд работал быстро и&nbsp;надёжно, но&nbsp;пользовательский опыт страдал от&nbsp;классических болезней пет-проектов: статьи представляли собой неструктурированные простыни текста на&nbsp;10&nbsp;000+ слов, мобильная версия полностью отсутствовала, а&nbsp;поиск работал только по&nbsp;точному совпадению названий».
+        </p>
+      </div>
+
+      <div class="space-y-3 pt-2">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Ключевая аудитория сервиса</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="p-4 rounded-xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark space-y-1.5">
+            <div class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+              Начинающие игроки
+            </div>
+            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Нуждаются в&nbsp;пошаговом руководстве по&nbsp;сюжетным актам: какие камни брать у&nbsp;NPC, какие статы искать на&nbsp;вещах и&nbsp;как не&nbsp;застрять на&nbsp;боссах.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark space-y-1.5">
+            <div class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+              Опытные игроки-теоретики
+            </div>
+            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Ищут эндгейм-оптимизацию, варианты масштабирования урона, дорогой крафт и&nbsp;точные связки предметов под&nbsp;максимальный фарм карт.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark space-y-1.5">
+            <div class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              Создатели билдов и&nbsp;контента
+            </div>
+            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Авторы, публикующие свои руководства: им важны структурированный формат подачи, наглядные карточки и&nbsp;признание комьюнити.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02. PROBLEM: PAIN POINTS -->
+    <section id="problem" class="case-reveal space-y-6 mb-[100px] text-slate-700 dark:text-slate-300 leading-relaxed text-base">
+      <div>
+        <span class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">// Проблемы интерфейса</span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
+          02. Барьеры старого интерфейса и&nbsp;задачи редизайна
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-5 sm:p-6 rounded-2xl bg-rose-500/[0.04] dark:bg-rose-950/20 border border-rose-500/20 text-slate-300 space-y-3">
+          <div class="flex items-center gap-2 text-rose-400 font-bold text-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            Барьеры старой версии:
+          </div>
+          <ul class="text-xs sm:text-sm space-y-2.5 text-slate-600 dark:text-slate-300 list-disc list-inside">
+            <li><strong>Монолитные «простыни» текста:</strong> статьи по&nbsp;10&nbsp;000+ слов шли сплошным потоком без&nbsp;оглавления, якорей и&nbsp;быстрого перехода к&nbsp;нужным разделам.</li>
+            <li><strong>Нулевая мобильная адаптивность:</strong> таблицы умений и&nbsp;экипировки разъезжались на&nbsp;экранах смартфонов, текст обрезался, сайтом было невозможно пользоваться вне десктопа.</li>
+            <li><strong>Изолированный поиск:</strong> поисковая строка выдавала результаты только по&nbsp;точному заголовку статьи, не&nbsp;умея искать предметы или&nbsp;связки камней.</li>
+            <li><strong>Скрытая монетизация:</strong> услуги сервиса (покупка игровых сфер, прокачка) были спрятаны в&nbsp;футер или&nbsp;блокировались баннерной слепотой.</li>
+          </ul>
+        </div>
+
+        <div class="p-5 sm:p-6 rounded-2xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/20 text-slate-300 space-y-3">
+          <div class="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            Продуктовые задачи редизайна:
+          </div>
+          <ul class="text-xs sm:text-sm space-y-2.5 text-slate-600 dark:text-slate-300 list-disc list-inside">
+            <li><strong>Снизить Interaction Cost:</strong> превратить бесконечный скролл в&nbsp;структурированный инструмент с&nbsp;плавающей навигацией (Sticky TOC) в&nbsp;1 клик.</li>
+            <li><strong>Спроектировать полноценный Mobile-first:</strong> открыть новый регулярный сценарий изучения гайдов со&nbsp;смартфона в&nbsp;любое свободное время.</li>
+            <li><strong>Создать мульти-сущностный поиск:</strong> объединить в&nbsp;один поисковый интерфейс статьи, билды и&nbsp;базу предметов экипировки.</li>
+            <li><strong>Нативно интегрировать монетизацию:</strong> встроить понятные контекстные CTA прямо в&nbsp;карточки бюджетов и&nbsp;экипировки без&nbsp;навязчивой рекламы.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. RESEARCH: JOB STORIES & HYPOTHESES -->
+    <section id="research" class="case-reveal space-y-6 mb-[100px] text-slate-700 dark:text-slate-300 leading-relaxed text-base">
+      <div>
+        <span class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">// UX-исследование и&nbsp;гипотезы</span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
+          03. Исследование аудитории, Job Stories и&nbsp;8 продуктовых гипотез
+        </h2>
+      </div>
+
+      <p>
+        Вместе с&nbsp;разработчиком детально разобрали международные бенчмарки (Maxroll.gg, Mobalytics, PoE Vault) и&nbsp;сформировали расширенную матрицу пользовательских сценариев под&nbsp;разные типы игроков: от&nbsp;новичков первого дня лиги до&nbsp;хардкорных минмаксеров и&nbsp;авторов контента.
+      </p>
+
+      <!-- JOB STORIES TABLE -->
+      <div class="space-y-3">
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Job Stories игроков</h3>
+        <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-surface-borderDark">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-100 dark:bg-surface-cardDark text-xs font-mono uppercase text-slate-500 border-b border-slate-200 dark:border-surface-borderDark">
+              <tr>
+                <th class="p-4">Когда</th>
+                <th class="p-4">Я хочу</th>
+                <th class="p-4">Чтобы</th>
+                <th class="p-4">Страхи</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 dark:divide-surface-borderDark text-slate-600 dark:text-slate-300 text-xs sm:text-sm">
+              <tr>
+                <td class="p-4">Выбираю стартового героя перед запуском новой лиги (League Starter)</td>
+                <td class="p-4 font-semibold text-slate-900 dark:text-white">С&nbsp;первого взгляда оценить порог входа, стартовый бюджет, выживаемость и&nbsp;скорость зачистки карт</td>
+                <td class="p-4">С&nbsp;первого дня лиги уверенно прогрессировать и&nbsp;не&nbsp;застрять на&nbsp;слабом билде в&nbsp;середине прокачки</td>
+                <td class="p-4 text-rose-400 font-medium">Потерять десятки часов и&nbsp;стартовую валюту на&nbsp;неэффективного персонажа</td>
+              </tr>
+              <tr>
+                <td class="p-4">Прохожу сюжетную кампанию (акты 1–10) со&nbsp;вторым монитором или&nbsp;смартфоном</td>
+                <td class="p-4 font-semibold text-slate-900 dark:text-white">В&nbsp;1 клик переключать связки камней, последовательность квестов и&nbsp;дерево умений под&nbsp;мой текущий акт</td>
+                <td class="p-4">Бежать локации без&nbsp;пауз, сверяя награды у&nbsp;NPC без&nbsp;ручной прокрутки десятков экранов</td>
+                <td class="p-4 text-rose-400 font-medium">Ошибиться в&nbsp;связках поддержки или&nbsp;запутаться при&nbsp;переходе от&nbsp;прокачки к&nbsp;эндгейм-билду</td>
+              </tr>
+              <tr>
+                <td class="p-4">Выхожу на&nbsp;высокоуровневые красные карты (T16+) и&nbsp;готовлюсь фармить убер-боссов</td>
+                <td class="p-4 font-semibold text-slate-900 dark:text-white">Видеть чёткую градацию прогрессии (Стартовый бюджет → Средний → High-End Минмакс) с&nbsp;приоритетами статов</td>
+                <td class="p-4">Поэтапно улучшать экипировку и&nbsp;точно знать, какой апгрейд даст максимальный прирост урона и&nbsp;выживаемости</td>
+                <td class="p-4 text-rose-400 font-medium">Слить весь накопленный капитал сфер на&nbsp;предмет, который не&nbsp;даст синергии с&nbsp;билдом</td>
+              </tr>
+              <tr>
+                <td class="p-4">В&nbsp;игре выпадает редкий уникальный предмет или&nbsp;ценный камень</td>
+                <td class="p-4 font-semibold text-slate-900 dark:text-white">Вбить название в&nbsp;смарт-поиск и&nbsp;сразу увидеть список актуальных билдов, построенных вокруг него</td>
+                <td class="p-4">Оценить рыночный потенциал предмета — продать его на&nbsp;трейде или&nbsp;собрать под&nbsp;него нового персонажа</td>
+                <td class="p-4 text-rose-400 font-medium">Получить пустую выдачу, продать ценный предмет за&nbsp;бесценок или&nbsp;уйти на&nbsp;англоязычную вики</td>
+              </tr>
+              <tr>
+                <td class="p-4">Еду в&nbsp;транспорте или&nbsp;отдыхаю на&nbsp;диване перед запуском ПК-сессии</td>
+                <td class="p-4 font-semibold text-slate-900 dark:text-white">Комфортно читать гайды с&nbsp;телефона, изучать статы камней и&nbsp;экипировку без&nbsp;горизонтального скролла</td>
+                <td class="p-4">Заранее спланировать билд и&nbsp;план покупок на&nbsp;предстоящую вечернюю игровую сессию</td>
+                <td class="p-4 text-rose-400 font-medium">Сломанная вёрстка, разъехавшиеся таблицы и&nbsp;необходимость запускать тяжелый софт (PoB) с&nbsp;телефона</td>
+              </tr>
+              <tr>
+                <td class="p-4">Публикую или&nbsp;обновляю авторский билд под&nbsp;свежий патч лиги</td>
+                <td class="p-4 font-semibold text-slate-900 dark:text-white">Чтобы читатели легко находили код PoB, видеодемонстрацию геймплея и&nbsp;могли задать вопросы в&nbsp;комментариях</td>
+                <td class="p-4">Получать признание комьюнити, закладки, лайки и&nbsp;формировать лояльную аудиторию вокруг гайда</td>
+                <td class="p-4 text-rose-400 font-medium">Хаотичная подача материала отпугнёт игроков, а&nbsp;гайд утонет без&nbsp;отзывов и&nbsp;обратной связи</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- HYPOTHESES -->
+      <div class="space-y-3 pt-4">
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Продуктовые гипотезы</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-300">
+          Сформулировали 8 гипотез до начала проектирования макетов. Подтверждены 6 из&nbsp;8 (две гипотезы были скорректированы в&nbsp;процессе UX-тестирования):
+        </p>
+
+        <div class="space-y-3 pt-2">
+          <!-- Hyp 1 -->
+          <div class="p-4 rounded-xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/20 flex items-start justify-between gap-3">
+            <div>
+              <div class="font-bold text-slate-900 dark:text-white text-sm">1. Плавающая навигация (Sticky TOC) сократит время поиска разделов</div>
+              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Фиксированное боковое меню со&nbsp;скролл-трекингом и&nbsp;якорями к&nbsp;ключевым секциям (Прокачка, Дерево, Экипировка, Камни) избавит игрока от&nbsp;необходимости непрерывно мотать страницу вверх и&nbsp;вниз на&nbsp;15+ экранов.</p>
+            </div>
+            <span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-500/20 text-emerald-400 shrink-0">ПОДТВЕРЖДЕНО</span>
+          </div>
+
+          <!-- Hyp 2 -->
+          <div class="p-4 rounded-xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/20 flex items-start justify-between gap-3">
+            <div>
+              <div class="font-bold text-slate-900 dark:text-white text-sm">2. Полноценная мобильная адаптация откроет новый сегмент регулярной аудитории</div>
+              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Игроки хотят изучать теорию и&nbsp;планировать прогрессию вне ПК-сессий (в транспорте, на&nbsp;диване, на&nbsp;работе). Адаптивная верстка без&nbsp;горизонтального скролла радикально повысит удержание (Mobile Retention).</p>
+            </div>
+            <span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-500/20 text-emerald-400 shrink-0">ПОДТВЕРЖДЕНО</span>
+          </div>
+
+          <!-- Hyp 3 -->
+          <div class="p-4 rounded-xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/20 flex items-start justify-between gap-3">
+            <div>
+              <div class="font-bold text-slate-900 dark:text-white text-sm">3. Мульти-сущностный смарт-поиск увеличит внутреннюю циркуляцию трафика</div>
+              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Связка «Предмет экипировки → готовые билды под&nbsp;него» закроет частый сценарий игроков («что делать с&nbsp;выпавшим лутом») и&nbsp;увеличит среднюю глубину просмотра страниц сайта.</p>
+            </div>
+            <span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-500/20 text-emerald-400 shrink-0">ПОДТВЕРЖДЕНО</span>
+          </div>
+
+          <!-- Hyp 4 -->
+          <div class="p-4 rounded-xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/20 flex items-start justify-between gap-3">
+            <div>
+              <div class="font-bold text-slate-900 dark:text-white text-sm">4. Интерактивные вкладки уровней бюджета (Low / Mid / High) снизят когнитивную нагрузку</div>
+              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Разделение экипировки на&nbsp;ценовые тиры через&nbsp;переключатели вкладок избавит новичков от&nbsp;страха перед недостижимым эндгейм-шмотом за&nbsp;сотни божественных сфер.</p>
+            </div>
+            <span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-500/20 text-emerald-400 shrink-0">ПОДТВЕРЖДЕНО</span>
+          </div>
+
+          <!-- Hyp 5 -->
+          <div class="p-4 rounded-xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/20 flex items-start justify-between gap-3">
+            <div>
+              <div class="font-bold text-slate-900 dark:text-white text-sm">5. Заметная кнопка в&nbsp;верхнем меню («Купить сферы PoE») эффективнее слепых баннеров</div>
+              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Вынос яркой целевой кнопки покупки сфер прямо в&nbsp;верхнее меню (хедер) обеспечивает постоянную видимость главного коммерческого действия на&nbsp;всех страницах платформы без&nbsp;раздражающей баннерной рекламы.</p>
+            </div>
+            <span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-500/20 text-emerald-400 shrink-0">ПОДТВЕРЖДЕНО</span>
+          </div>
+
+          <!-- Hyp 6 -->
+          <div class="p-4 rounded-xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/20 flex items-start justify-between gap-3">
+            <div>
+              <div class="font-bold text-slate-900 dark:text-white text-sm">6. Система тегов и&nbsp;фильтрации билдов (Босс-киллер, Быстрый маппинг, Новичок) ускорит первый выбор</div>
+              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Визуальные бейджи ключевых архетипов в&nbsp;каталоге позволят игрокам отфильтровать билды под&nbsp;свой стиль за&nbsp;секунды без&nbsp;необходимости читать все лонгриды подряд.</p>
+            </div>
+            <span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-500/20 text-emerald-400 shrink-0">ПОДТВЕРЖДЕНО</span>
+          </div>
+
+          <!-- Hyp 7 -->
+          <div class="p-4 rounded-xl bg-rose-500/[0.04] dark:bg-rose-950/20 border border-rose-500/20 flex items-start justify-between gap-3">
+            <div>
+              <div class="font-bold text-slate-900 dark:text-white text-sm">7. Радикальное сокращение числовых статов камней и&nbsp;экипировки упростит восприятие</div>
+              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Предполагалось скрыть мелкие числовые параметры камней и&nbsp;экипировки для&nbsp;«чистоты» интерфейса. <em>(Опровергнуто: опытным игрокам критически важны точные цифры для&nbsp;расчёта капов сопротивлений и&nbsp;маны. Решением стали интерактивные всплывающие тултипы при&nbsp;наведении/тапе вместо обрезания данных).</em></p>
+            </div>
+            <span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-rose-500/20 text-rose-400 shrink-0">ОПРОВЕРГНУТО</span>
+          </div>
+
+          <!-- Hyp 8 -->
+          <div class="p-4 rounded-xl bg-rose-500/[0.04] dark:bg-rose-950/20 border border-rose-500/20 flex items-start justify-between gap-3">
+            <div>
+              <div class="font-bold text-slate-900 dark:text-white text-sm">8. Встраивание громоздкого интерактивного дерева умений прямо в&nbsp;страницу заменит внешний софт</div>
+              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Была идея отрендерить полное пассивное дерево (1300+ нод на&nbsp;WebGL) прямо в&nbsp;теле статьи вместо внешней ссылки. <em>(Опровергнуто: полотно перегружало мобильные устройства, замедляло рендеринг и&nbsp;дублировало софт PoB. Оптимальным решением стала компактная инфографика ключевых вех + кнопка прямого копирования кода в&nbsp;Path of Building в&nbsp;1 клик).</em></p>
+            </div>
+            <span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-rose-500/20 text-rose-400 shrink-0">ОПРОВЕРГНУТО</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. ARCHITECTURE: LONGREAD ERGONOMICS -->
+    <section id="architecture" class="case-reveal space-y-6 mb-[100px] text-slate-700 dark:text-slate-300 leading-relaxed text-base">
+      <div>
+        <span class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">// Эргономика гайда</span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
+          04. Модульная структура статьи и&nbsp;плавающая навигация (Sticky TOC)
+        </h2>
+      </div>
+
+      <p>
+        Статья по&nbsp;билду в&nbsp;Path of Exile включает в&nbsp;себя: дерево умений, последовательность камней по&nbsp;актам, приоритеты характеристик на&nbsp;вещах, пантеон, бандитов и&nbsp;механику геймплея. В&nbsp;старой версии это была монолитная непрерывная страница, где найти конкретную связку камней требовало постоянного ручного скролла туда-обратно.
+      </p>
+
+      <div class="space-y-3">
+        <div class="rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 dark:border-surface-borderDark bg-[#08090d] shadow-2xl p-2 sm:p-4">
+          <img src="/assets/lootkeeper/guide-animation.gif" alt="Плавающая консоль навигации Sticky TOC и модульная структура статьи Lootkeeper" class="w-full h-auto object-cover rounded-xl cursor-zoom-in" onclick="openImageLightbox('/assets/lootkeeper/guide-animation.gif', 'Плавающая консоль навигации Sticky TOC и модульная структура статьи')" loading="lazy">
+        </div>
+        <div class="flex items-center justify-between text-xs text-slate-500 px-2 font-mono">
+          <span>// Справа: фиксированная консоль навигации со&nbsp;статусами бюджета, сложности и&nbsp;версии лиги</span>
+          <span class="text-amber-400">Sticky Navigation Bar</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+        <div class="p-4 rounded-xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark space-y-1.5">
+          <div class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+            Sticky Table of Contents
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Правая колонка зафиксирована на&nbsp;экране. При&nbsp;чтении статьи активный раздел автоматически подсвечивается, а&nbsp;клик мгновенно скроллит к&nbsp;нужной главе.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark space-y-1.5">
+          <div class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+            Параметры билда в&nbsp;1 клик
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            В&nbsp;консоль вынесены ключевые фильтры: выбор лиги (текущая / стандарт), бюджет (стартовый / эндгейм), сложность и&nbsp;тип фарма.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark space-y-1.5">
+          <div class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            Интерактивные тултипы
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            При&nbsp;наведении на&nbsp;любой предмет всплывает оригинальная карточка вещи из&nbsp;игры с&nbsp;точными числовыми свойствами без&nbsp;перехода на&nbsp;сторонние сайты.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05. MOBILE-FIRST RETENTION -->
+    <section id="mobile" class="case-reveal space-y-6 mb-[100px] text-slate-700 dark:text-slate-300 leading-relaxed text-base">
+      <div>
+        <span class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">// Мобильный опыт</span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
+          05. Mobile-first адаптация как&nbsp;ключевой драйвер удержания (Retention)
+        </h2>
+      </div>
+
+      <p>
+        Главным открытием исследования стало реальное поведение игроков: вопреки мифу, что хардкорные геймеры играют исключительно за&nbsp;ПК, <strong>огромная доля аудитории изучает билды со&nbsp;смартфонов</strong>. Люди читают гайды на&nbsp;диване, в&nbsp;транспорте или&nbsp;на&nbsp;рабочих перерывах, чтобы заранее спланировать вечернюю сессию прокачки.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+        <div class="space-y-4">
+          <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-slate-300 text-sm">
+            <div class="font-bold text-amber-400 mb-1">Отзыв создателя платформы:</div>
+            <p class="italic text-xs sm:text-sm text-slate-300">
+              «Мобильная версия стала качественным прорывом. Раньше мобильный трафик сразу отваливался из-за разъезжавшихся таблиц. Теперь игроки читают гайды со&nbsp;смартфонов и&nbsp;регулярно возвращаются на&nbsp;сайт».
+            </p>
+          </div>
+
+          <ul class="text-xs sm:text-sm space-y-2 text-slate-600 dark:text-slate-300">
+            <li class="flex items-start gap-2">
+              <span class="text-amber-400 font-bold">✓</span>
+              <span><strong>Оптимизация под&nbsp;одну руку:</strong> быстрый доступ к&nbsp;навигации и&nbsp;поиску в&nbsp;зоне досягаемости большого пальца.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-amber-400 font-bold">✓</span>
+              <span><strong>Складывающиеся аккордеоны:</strong> подробные таблицы камней и&nbsp;экипировки скрыты под&nbsp;аккуратными тапами, исключая бесконечную прокрутку на&nbsp;смартфонах.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-amber-400 font-bold">✓</span>
+              <span><strong>Мобильная шторка глав:</strong> плавающая компактная кнопка «Оглавление» позволяет моментально перепрыгивать по&nbsp;разделам без&nbsp;необходимости скроллить обратно наверх.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="flex justify-center">
+          <!-- SMARTPHONE MOCKUP FRAME (IDENTICAL TO HERO COMPARISON MOCKUP) -->
+          <div class="w-full max-w-[320px] sm:max-w-[340px] shrink-0 bg-[#090b10] p-3 sm:p-3.5 rounded-[44px] border-4 border-slate-700/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] relative ring-1 ring-white/10">
+            <!-- DYNAMIC ISLAND / SPEAKER -->
+            <div class="w-28 h-4.5 bg-black rounded-full mx-auto mb-2 flex items-center justify-between px-3">
+              <span class="w-2 h-2 rounded-full bg-slate-900 border border-slate-800"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-[#1e2333]"></span>
+            </div>
+            
+            <!-- PHONE SCREEN CONTAINER -->
+            <div class="relative select-none rounded-[28px] overflow-hidden border border-white/10 bg-[#090a0f] shadow-inner h-[540px] sm:h-[580px]">
+              <!-- VERTICAL SCROLL AREA (WHEEL SCROLL, HIDDEN SCROLLBAR) -->
+              <div id="mobileGuideScrollContainer" class="w-full h-full overflow-y-auto overflow-x-hidden relative scroll-smooth" style="scrollbar-width: none; -ms-overflow-style: none;">
+                <div class="relative w-full">
+                  <img id="mobileGuideFullImg" src="/assets/lootkeeper/guide-mobile-full.png" alt="Lootkeeper — Мобильная версия гайда (актуальный макет)" class="w-full h-auto block select-none" loading="lazy">
+                </div>
+              </div>
+            </div>
+
+            <!-- HOME INDICATOR -->
+            <div class="w-28 h-1 bg-slate-600 rounded-full mx-auto mt-2.5 pointer-events-none"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. SEARCH & WIKI -->
+    <section id="search" class="case-reveal space-y-6 mb-[100px] text-slate-700 dark:text-slate-300 leading-relaxed text-base">
+      <div>
+        <span class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">// Поиск и&nbsp;навигация</span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
+          06. Мульти-сущностный смарт-поиск и&nbsp;база знаний
+        </h2>
+      </div>
+
+      <p>
+        В&nbsp;старом варианте поиск проверял только точные совпадения по&nbsp;заголовкам статей. Если игрок находил в&nbsp;игре предмет (например, «Охотник за&nbsp;Головами») и&nbsp;хотел узнать, для&nbsp;какого билда он нужен, поиск выдавал пустой экран.
+      </p>
+
+      <p>
+        Мы спроектировали <strong>мульти-сущностный смарт-поиск</strong>, объединяющий три слоя данных:
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="p-4 rounded-xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark">
+          <div class="text-xs font-mono text-purple-400 font-bold uppercase mb-1">[ Билды ]</div>
+          <div class="font-bold text-slate-900 dark:text-white text-sm mb-1">Связка умений и&nbsp;архетипы</div>
+          <p class="text-xs text-slate-600 dark:text-slate-400">Поиск по&nbsp;классам, умениям («Зимняя сфера», «Вихрь стрел») и&nbsp;подклассам восхождения.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark">
+          <div class="text-xs font-mono text-amber-400 font-bold uppercase mb-1">[ Предметы ]</div>
+          <div class="font-bold text-slate-900 dark:text-white text-sm mb-1">Внутриигровая база лута</div>
+          <p class="text-xs text-slate-600 dark:text-slate-400">Поиск по&nbsp;уникальной экипировке, флаконам, камням и&nbsp;реликвиям с&nbsp;показом их свойств и&nbsp;статов.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark">
+          <div class="text-xs font-mono text-blue-400 font-bold uppercase mb-1">[ Гайды ]</div>
+          <div class="font-bold text-slate-900 dark:text-white text-sm mb-1">Механики и&nbsp;инструменты</div>
+          <p class="text-xs text-slate-600 dark:text-slate-400">Обучающие статьи: гайды для&nbsp;новичков, крафт предметов, генератор regex для&nbsp;карт, подбор флаконов.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07. COMMUNITY & MONETIZATION -->
+    <section id="community" class="case-reveal space-y-6 mb-[100px] text-slate-700 dark:text-slate-300 leading-relaxed text-base">
+      <div>
+        <span class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">// Монетизация и&nbsp;комьюнити</span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
+          07. Нативные Call-to-Action и&nbsp;социальный контур платформы
+        </h2>
+      </div>
+
+      <p>
+        Бизнес-модель платформы построена на&nbsp;продаже игровых услуг: сфер валюты (Божественные сферы, Сферы возвышения) и&nbsp;помощи в&nbsp;прокачке. Раньше ссылки на&nbsp;магазин прятались в&nbsp;подвал или&nbsp;выводились навязчивыми баннерами, вызывавшими баннерную слепоту.
+      </p>
+
+      <div class="p-6 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="space-y-2 max-w-xl">
+          <div class="inline-flex items-center gap-2 text-xs font-mono text-amber-400 font-bold">
+            <img src="/assets/lootkeeper/orb.png" alt="Сфера PoE" class="w-4 h-4">
+            Сквозная коммерческая навигация:
+          </div>
+          <h4 class="text-lg font-bold text-slate-900 dark:text-white">Кнопка «Купить сферы PoE» прямо в&nbsp;верхнем меню</h4>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+            Вместо раздражающих баннеров и&nbsp;ссылок, спрятанных в&nbsp;подвал, кнопка покупки валюты вынесена прямо в&nbsp;верхнее меню (хедер) сайта. Она доступна на&nbsp;каждой странице и&nbsp;нативно привлекает целевой трафик без&nbsp;баннерной слепоты.
+          </p>
+        </div>
+
+        <div class="shrink-0 p-4 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-3 shadow-md">
+          <div class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-bold bg-[#1d8cf8] hover:bg-blue-500 text-white transition-colors shadow-md shadow-blue-500/20 select-none">
+            <img src="/assets/lootkeeper/orb.png" alt="PoE Orb" class="w-4 h-4">
+            Купить сферы PoE
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-2">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Социальный слой и&nbsp;самомодерация</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark space-y-2">
+            <div class="text-amber-400 text-sm font-bold flex items-center gap-2">
+              <span>🏆</span> Достижения на&nbsp;сайте
+            </div>
+            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Геймификация активности: бейджи за&nbsp;первые комментарии, проверенные билды и&nbsp;помощь новичкам.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark space-y-2">
+            <div class="text-emerald-400 text-sm font-bold flex items-center gap-2">
+              <span>👍 / 👎</span> Карма комментариев
+            </div>
+            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Полезные ответы поднимаются вверх комьюнити, формируя рейтинг доверия автора ответа.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark space-y-2">
+            <div class="text-blue-400 text-sm font-bold flex items-center gap-2">
+              <span>👤</span> Профиль игрока
+            </div>
+            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              История сообщений, список наград и&nbsp;уровень репутации видны другим игрокам, создавая статусность эксперта.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. DESIGN SYSTEM -->
+    <section id="design-system" class="case-reveal space-y-6 mb-[100px] text-slate-700 dark:text-slate-300 leading-relaxed text-base">
+      <div>
+        <span class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">// Дизайн-система</span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
+          08. Дизайн-система и&nbsp;библиотека компонентов
+        </h2>
+      </div>
+
+      <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+        Собрал для Lootkeeper комплексную дизайн-систему в&nbsp;Figma: вынес цветовую палитру и&nbsp;типографику в&nbsp;дизайн-токены, разработал модульную сетку на&nbsp;Auto Layout и&nbsp;отрисовал библиотеку многоразовых компонентов со&nbsp;всеми интерактивными состояниями (Default, Hover, Active, Disabled). Разработчикам легко переносить макеты в&nbsp;код без лишних вопросов и&nbsp;подгонки по&nbsp;пикселям.
+      </p>
+
+      <!-- DESIGN SYSTEM SPECS BADGES -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark">
+          <div class="text-xs font-mono text-amber-400 font-bold mb-1">TOKENS</div>
+          <div class="text-sm font-bold text-slate-900 dark:text-white">Figma Variables & WCAG</div>
+          <div class="text-xs text-slate-500 mt-0.5">Семантические токены цветов, золотой акцент бренда</div>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark">
+          <div class="text-xs font-mono text-emerald-400 font-bold mb-1">GRID & LAYOUT</div>
+          <div class="text-sm font-bold text-slate-900 dark:text-white">Сетка 8pt & Auto Layout</div>
+          <div class="text-xs text-slate-500 mt-0.5">Модульные отступы и&nbsp;адаптивные контейнеры</div>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark">
+          <div class="text-xs font-mono text-blue-400 font-bold mb-1">COMPONENTS</div>
+          <div class="text-sm font-bold text-slate-900 dark:text-white">4 интерактивных состояния</div>
+          <div class="text-xs text-slate-500 mt-0.5">Default, Hover, Active, Disabled</div>
+        </div>
+      </div>
+
+      <!-- FIGMA LIVE EMBED -->
+      <div class="pt-2">
+        <div class="rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 dark:border-surface-borderDark bg-[#08090d] shadow-2xl">
+          <div class="px-4 py-3 flex items-center justify-between text-xs text-slate-400 border-b border-slate-800 bg-[#0c0d14]">
+            <div class="flex items-center gap-2 font-mono">
+              <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+              <span class="text-slate-200 font-semibold">Figma Canvas: UI Components Library (Node 3:4)</span>
+            </div>
+            <a href="https://www.figma.com/design/nboi4khI2F3rs6JvSnXhjw/LootKeeper?node-id=3-4&t=O399ow1z1bUtKHV7-1" target="_blank" rel="noopener" class="text-amber-400 hover:text-amber-300 hover:underline flex items-center gap-1 font-mono font-bold">
+              Открыть в Figma ↗
+            </a>
+          </div>
+          <iframe style="border: none;" width="100%" height="560" src="https://embed.figma.com/design/nboi4khI2F3rs6JvSnXhjw/LootKeeper?embed-host=oembed&node-id=3-4&theme=dark" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09. RESULTS -->
+    <section id="results" class="case-reveal space-y-6 mb-[100px]">
+      <div>
+        <span class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">// Эффективность решений</span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
+          09. Результаты для продукта и&nbsp;комьюнити
+        </h2>
+      </div>
+
+      <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+        В&nbsp;проекте не&nbsp;было сложной продуктовой телеметрии, поэтому эффект оценивали на практике: замеряли время прохождения ключевых сценариев на&nbsp;старой и&nbsp;новой версии сайта, а&nbsp;также анализировали фидбек комьюнити и&nbsp;владельца платформы.
+      </p>
+
+      <!-- 4 METRICS CARDS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+        
+        <!-- CARD 1: Retention -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3 hover:border-amber-500/40 transition-colors">
+          <div>
+            <h3 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white whitespace-nowrap">Retention</h3>
+            <div class="text-2xl sm:text-3xl font-extrabold text-amber-400 tracking-tight font-mono whitespace-nowrap mt-2">&uarr;</div>
+          </div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 leading-snug pt-1">за&nbsp;счет mobile версии открыт сценарий чтения с&nbsp;дивана и&nbsp;в&nbsp;дороге</div>
+        </div>
+
+        <!-- CARD 2: Longread Time-to-Info -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3 hover:border-emerald-500/40 transition-colors">
+          <div>
+            <h3 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white whitespace-nowrap">Time to Info</h3>
+            <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight font-mono whitespace-nowrap mt-2">~ -70%</div>
+          </div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 leading-snug pt-1">замер сценария: поиск нужной главы через Sticky TOC против старого ручного скролла</div>
+        </div>
+
+        <!-- CARD 3: Reading Depth -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3 hover:border-blue-500/40 transition-colors">
+          <div>
+            <h3 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white whitespace-nowrap">Reading Depth</h3>
+            <div class="text-2xl sm:text-3xl font-extrabold text-blue-400 tracking-tight font-mono whitespace-nowrap mt-2">&uarr;</div>
+          </div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 leading-snug pt-1">рост глубины прочтения: игроки изучают билд до&nbsp;конца руководства</div>
+        </div>
+
+        <!-- CARD 4: Conversion Rate -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-surface-cardDark border border-slate-200 dark:border-surface-borderDark flex flex-col justify-between space-y-3 hover:border-purple-500/40 transition-colors">
+          <div>
+            <h3 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white whitespace-nowrap">Conversion Rate</h3>
+            <div class="text-2xl sm:text-3xl font-extrabold text-purple-400 tracking-tight font-mono whitespace-nowrap mt-2">&uarr;</div>
+          </div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 leading-snug pt-1">нативная покупка сфер в&nbsp;хедере без&nbsp;раздражающей рекламы и&nbsp;баннерной слепоты</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER NAV -->
+    <div class="pt-8 border-t border-slate-200 dark:border-surface-borderDark flex flex-col sm:flex-row items-center justify-between gap-4">
+      <a href="/" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-md transition-all">
+        Вернуться на&nbsp;главную
+      </a>
+      <a href="/cases/soundpower.html" class="text-sm font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors">
+        Следующий кейс — Soundpower →
+      </a>
+    </div>
+
+    <!-- COPYRIGHT -->
+    <div class="mt-8 pt-8 border-t border-slate-200 dark:border-surface-borderDark text-center text-xs font-mono text-slate-500 dark:text-slate-400">
+      © 2026 Егор Якоби • Product & Interface Designer
+    </div>
+
+  </main>
+
+  <!-- SCROLL TO TOP BUTTON (ANCHOR) -->
+  <a href="#top" id="scrollToTopBtn" onclick="scrollToTop(event)" aria-label="Вернуться в начало страницы" title="Наверх" class="fixed bottom-6 sm:bottom-8 z-40 w-12 h-12 rounded-full bg-slate-900/80 dark:bg-[#13111c]/80 hover:bg-amber-500 text-slate-400 hover:text-slate-950 dark:text-amber-300 dark:hover:text-slate-950 shadow-lg backdrop-blur-md flex items-center justify-center transition-all duration-300 opacity-0 translate-y-4 pointer-events-none scale-90 hover:scale-110 active:scale-95 border border-amber-500/25 hover:border-amber-400 group" style="right: max(1rem, calc((100vw - 56rem) / 2 - 5.75rem));">
+    <svg class="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+    </svg>
+  </a>
+
+  <!-- IMAGE LIGHTBOX MODAL -->
+  <div id="imageLightboxModal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md hidden items-center justify-center p-3 sm:p-6 transition-opacity select-none" onclick="if(event.target === this) closeImageLightbox();">
+    <!-- Close button -->
+    <button type="button" onclick="closeImageLightbox()" class="absolute top-4 right-4 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xl transition-colors border border-white/10" title="Закрыть (Esc)">
+      ✕
+    </button>
+
+    <!-- Top info bar -->
+    <div class="absolute top-4 left-4 sm:left-6 z-20 font-mono text-xs text-slate-300 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 flex items-center gap-2">
+      <span id="imageLightboxTitle" class="font-bold text-white"></span>
+    </div>
+
+    <!-- Image container -->
+    <div class="max-w-[95vw] max-h-[88vh] flex items-center justify-center overflow-auto py-2" onclick="if(event.target === this) closeImageLightbox();">
+      <img id="imageLightboxImg" src="" alt="" class="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl transition-all">
+    </div>
+
+    <!-- Bottom helper hint -->
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 hidden sm:block text-xs font-mono text-slate-400 bg-black/50 backdrop-blur-sm px-3.5 py-1 rounded-full border border-white/5">
+      Клик вне изображения или Esc для закрытия
+    </div>
+  </div>
+
+  <script>
+    // SCROLL TO TOP ANCHOR HANDLER
+    function scrollToTop(e) {
+      if (e) e.preventDefault();
+      history.replaceState(null, '', '#top');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('scrollToTopBtn');
+      if (!btn) return;
+      if (window.scrollY > 400) {
+        btn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none', 'scale-90');
+        btn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto', 'scale-100');
+      } else {
+        btn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto', 'scale-100');
+        btn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none', 'scale-90');
+      }
+    }, { passive: true });
+
+    // IMAGE LIGHTBOX
+    function openImageLightbox(src, title) {
+      const modal = document.getElementById('imageLightboxModal');
+      const img = document.getElementById('imageLightboxImg');
+      const titleEl = document.getElementById('imageLightboxTitle');
+      if (!modal || !img) return;
+      img.src = src;
+      img.alt = title || '';
+      if (titleEl) titleEl.textContent = title || '';
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageLightbox() {
+      const modal = document.getElementById('imageLightboxModal');
+      if (!modal) return;
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    window.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('imageLightboxModal');
+      if (!modal || modal.classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeImageLightbox();
+    });
+
+    // SWITCH HERO MODE (DESKTOP / MOBILE)
+    function switchLootHeroMode(mode) {
+      const desktopBtn = document.getElementById('lootHeroBtn-desktop');
+      const mobileBtn = document.getElementById('lootHeroBtn-mobile');
+      const desktopContainer = document.getElementById('lootHeroContainerDesktop');
+      const mobileContainer = document.getElementById('lootHeroContainerMobile');
+      if (!desktopBtn || !mobileBtn || !desktopContainer || !mobileContainer) return;
+
+      const activeClass = 'p-2 sm:p-2.5 rounded-lg transition-all flex items-center justify-center bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20';
+      const inactiveClass = 'p-2 sm:p-2.5 rounded-lg transition-all flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/50';
+
+      if (mode === 'desktop') {
+        desktopBtn.className = activeClass;
+        mobileBtn.className = inactiveClass;
+        desktopContainer.classList.remove('hidden');
+        mobileContainer.classList.add('hidden');
+        window.dispatchEvent(new Event('resize'));
+        document.getElementById('beforeAfterSlider')?._restartAutoSlider?.();
+      } else {
+        mobileBtn.className = activeClass;
+        desktopBtn.className = inactiveClass;
+        mobileContainer.classList.remove('hidden');
+        desktopContainer.classList.add('hidden');
+        window.dispatchEvent(new Event('resize'));
+        if (typeof initLootHeroMobileSlider === 'function') initLootHeroMobileSlider();
+        document.getElementById('mobileHeroSlider')?._restartAutoSlider?.();
+      }
+    }
+
+    // MOBILE HERO BEFORE / AFTER SLIDER
+    let lootHeroMobileSliderInitialized = false;
+    function initLootHeroMobileSlider() {
+      if (lootHeroMobileSliderInitialized) return;
+      const container = document.getElementById('mobileHeroSlider');
+      const handle = document.getElementById('mobileHeroSliderHandle');
+      if (!container || !handle) return;
+      lootHeroMobileSliderInitialized = true;
+
+      let isDragging = false;
+
+      function updatePosition(clientX) {
+        const rect = container.getBoundingClientRect();
+        let x = clientX - rect.left;
+        x = Math.max(0, Math.min(x, rect.width));
+        const pct = ((x / rect.width) * 100).toFixed(2);
+        container.style.setProperty('--hpos', pct + '%');
+      }
+
+      handle.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        handle.setPointerCapture(e.pointerId);
+        e.stopPropagation();
+      });
+
+      container.addEventListener('pointerdown', (e) => {
+        if (e.target !== handle && !handle.contains(e.target)) {
+          isDragging = true;
+          handle.setPointerCapture(e.pointerId);
+          updatePosition(e.clientX);
+        }
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        if (isDragging) updatePosition(e.clientX);
+      });
+
+      const stopDragging = (e) => {
+        if (isDragging && e && e.pointerId) {
+          try { handle.releasePointerCapture(e.pointerId); } catch(_) {}
+        }
+        isDragging = false;
+      };
+
+      window.addEventListener('pointerup', stopDragging);
+      window.addEventListener('pointercancel', stopDragging);
+    }
+
+    // BEFORE / AFTER COMPARISON SLIDER CONTROLLER
+    (function initLootBeforeAfterSlider() {
+      const container = document.getElementById('beforeAfterSlider');
+      const handle = document.getElementById('sliderHandle');
+      const scrollArea = document.getElementById('sliderScrollArea');
+      if (!container || !handle) return;
+      let isDragging = false;
+
+      function updateScrollbarWidth() {
+        if (!scrollArea) return;
+        const sbWidth = Math.max(0, scrollArea.offsetWidth - scrollArea.clientWidth);
+        container.style.setProperty('--sb-width', sbWidth + 'px');
+      }
+      updateScrollbarWidth();
+      window.addEventListener('resize', updateScrollbarWidth);
+      if (window.ResizeObserver) {
+        new ResizeObserver(updateScrollbarWidth).observe(scrollArea);
+      }
+
+      function updatePosition(clientX) {
+        const area = scrollArea || container;
+        const rect = area.getBoundingClientRect();
+        const trackWidth = scrollArea ? scrollArea.clientWidth : rect.width;
+        let x = clientX - rect.left;
+        x = Math.max(0, Math.min(x, trackWidth));
+        const pct = ((x / trackWidth) * 100).toFixed(2);
+        container.style.setProperty('--pos', pct + '%');
+      }
+
+      handle.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        handle.setPointerCapture(e.pointerId);
+        e.stopPropagation();
+      });
+
+      container.addEventListener('pointerdown', (e) => {
+        if (e.target !== handle && !handle.contains(e.target)) {
+          isDragging = true;
+          handle.setPointerCapture(e.pointerId);
+          updatePosition(e.clientX);
+        }
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        if (isDragging) updatePosition(e.clientX);
+      });
+
+      const stopDragging = (e) => {
+        if (isDragging && e && e.pointerId) {
+          try { handle.releasePointerCapture(e.pointerId); } catch(_) {}
+        }
+        isDragging = false;
+      };
+
+      window.addEventListener('pointerup', stopDragging);
+      window.addEventListener('pointercancel', stopDragging);
+
+      // Synchronized scroll with bottom clamping for the shorter canvas
+      const oldImg = document.getElementById('oldSiteImg');
+      const newImg = document.getElementById('newSiteImg');
+      const scrollContent = document.getElementById('scrollContent');
+
+      function updateContainerHeight() {
+        if (!container || !oldImg) return;
+        const h = Math.floor(oldImg.offsetHeight || oldImg.getBoundingClientRect().height);
+        if (h > 0 && Math.abs(container.clientHeight - h) > 1) {
+          container.style.height = h + 'px';
+        }
+      }
+
+      function syncScroll() {
+        if (!scrollArea || !oldImg || !newImg) return;
+        updateScrollbarWidth();
+        const S = scrollArea.scrollTop;
+        const viewH = scrollArea.clientHeight;
+        const oldH = oldImg.offsetHeight || oldImg.getBoundingClientRect().height;
+        const newH = newImg.offsetHeight || newImg.getBoundingClientRect().height;
+        if (!oldH || !newH) return;
+
+        // Ensure scrollable height matches the longer canvas so nothing is cut off
+        const maxH = Math.max(oldH, newH);
+        if (scrollContent && scrollContent.offsetHeight < maxH) {
+          scrollContent.style.minHeight = maxH + 'px';
+        }
+
+        // Clamp the shorter canvas when its footer reaches the bottom of the viewport
+        if (oldH < newH) {
+          const maxOldScroll = Math.max(0, oldH - viewH);
+          if (S > maxOldScroll) {
+            oldImg.style.transform = `translateY(${S - maxOldScroll}px)`;
+          } else {
+            oldImg.style.transform = 'translateY(0px)';
+          }
+          newImg.style.transform = 'translateY(0px)';
+        } else if (newH < oldH) {
+          const maxNewScroll = Math.max(0, newH - viewH);
+          if (S > maxNewScroll) {
+            newImg.style.transform = `translateY(${S - maxNewScroll}px)`;
+          } else {
+            newImg.style.transform = 'translateY(0px)';
+          }
+          oldImg.style.transform = 'translateY(0px)';
+        } else {
+          oldImg.style.transform = 'translateY(0px)';
+          newImg.style.transform = 'translateY(0px)';
+        }
+      }
+
+      function onLayoutChange() {
+        updateContainerHeight();
+        syncScroll();
+      }
+
+      if (scrollArea) {
+        scrollArea.addEventListener('scroll', syncScroll, { passive: true });
+        window.addEventListener('resize', onLayoutChange);
+        if (oldImg) {
+          if (oldImg.complete) onLayoutChange();
+          else oldImg.addEventListener('load', onLayoutChange);
+        }
+        if (newImg) {
+          if (newImg.complete) onLayoutChange();
+          else newImg.addEventListener('load', onLayoutChange);
+        }
+        if (window.ResizeObserver) {
+          new ResizeObserver(onLayoutChange).observe(scrollArea);
+          new ResizeObserver(onLayoutChange).observe(oldImg);
+          new ResizeObserver(onLayoutChange).observe(newImg);
+        }
+      }
+
+      // Attach smooth auto-slider glide
+      attachAutoSlider(container, handle, '--pos');
+    })();
+
+    // UNIVERSAL AUTO-SLIDER CONTROLLER (Smooth Back & Forth Glide Every 4s)
+    function attachAutoSlider(container, handle, cssVarName = '--pos') {
+      if (!container || !handle) return;
+
+      let animFrameId = null;
+      let isUserInteracting = false;
+      let resumeTimer = null;
+      let isVisible = false;
+      let isCycleRunning = false;
+
+      function getPos() {
+        const val = container.style.getPropertyValue(cssVarName);
+        if (!val) return 50;
+        const num = parseFloat(val);
+        return isNaN(num) ? 50 : num;
+      }
+
+      function setPos(pct) {
+        container.style.setProperty(cssVarName, pct.toFixed(2) + '%');
+      }
+
+      function easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      }
+
+      function animateTween(from, to, durationMs) {
+        return new Promise((resolve) => {
+          const startTime = performance.now();
+          function step(now) {
+            if (isUserInteracting || !isVisible) {
+              resolve(false);
+              return;
+            }
+            const elapsed = now - startTime;
+            const progress = Math.min(1, elapsed / durationMs);
+            const eased = easeInOutCubic(progress);
+            const current = from + (to - from) * eased;
+            setPos(current);
+
+            if (progress < 1) {
+              animFrameId = requestAnimationFrame(step);
+            } else {
+              setPos(to);
+              resolve(true);
+            }
+          }
+          animFrameId = requestAnimationFrame(step);
+        });
+      }
+
+      async function triggerStep() {
+        if (isCycleRunning || isUserInteracting || !isVisible) return;
+        isCycleRunning = true;
+
+        const current = getPos();
+        const target = current > 50 ? 15 : 85;
+
+        const ok = await animateTween(current, target, 1800);
+        isCycleRunning = false;
+
+        if (ok) {
+          scheduleNext(4000);
+        }
+      }
+
+      function scheduleNext(delayMs = 4000) {
+        clearTimeout(resumeTimer);
+        if (animFrameId) cancelAnimationFrame(animFrameId);
+        isCycleRunning = false;
+
+        resumeTimer = setTimeout(() => {
+          if (!isUserInteracting && isVisible) {
+            triggerStep();
+          }
+        }, delayMs);
+      }
+
+      function onUserStart() {
+        isUserInteracting = true;
+        if (animFrameId) cancelAnimationFrame(animFrameId);
+        clearTimeout(resumeTimer);
+        isCycleRunning = false;
+      }
+
+      function onUserEnd() {
+        isUserInteracting = false;
+        scheduleNext(4000);
+      }
+
+      handle.addEventListener('pointerdown', onUserStart);
+      container.addEventListener('pointerdown', onUserStart);
+      window.addEventListener('pointerup', onUserEnd);
+      window.addEventListener('pointercancel', onUserEnd);
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const isHiddenByParent = !!container.closest('.hidden');
+          isVisible = entry.isIntersecting && !isHiddenByParent;
+          if (isVisible) {
+            scheduleNext(3500);
+          } else {
+            if (animFrameId) cancelAnimationFrame(animFrameId);
+            clearTimeout(resumeTimer);
+            isCycleRunning = false;
+          }
+        });
+      }, { threshold: 0.15 });
+
+      observer.observe(container);
+
+      container._restartAutoSlider = () => {
+        const isHiddenByParent = !!container.closest('.hidden');
+        if (!isHiddenByParent) {
+          isVisible = true;
+          scheduleNext(3500);
+        }
+      };
+    }
+
+    // Initialize mobile hero comparison slider & auto-slider
+    initLootHeroMobileSlider();
+    attachAutoSlider(document.getElementById('mobileHeroSlider'), document.getElementById('mobileHeroSliderHandle'), '--hpos');
+
+
+
+    // ACTIVE STICKY RAIL NAV OBSERVER
+    (function initRailObserver() {
+      const sections = ['intro', 'about', 'problem', 'research', 'architecture', 'mobile', 'search', 'community', 'design-system', 'results'];
+      const railItems = document.querySelectorAll('aside a.rail-item');
+      if (!railItems.length) return;
+
+      const lastId = sections[sections.length - 1];
+      let currentActiveId = sections[0];
+
+      function setActive(id) {
+        railItems.forEach(item => {
+          const href = item.getAttribute('href');
+          const dot = item.querySelector('.rail-dot');
+          const isActive = href === '#' + id;
+          if (isActive) {
+            item.classList.add('text-amber-400');
+            item.classList.remove('text-slate-400');
+            if (dot) dot.classList.add('active');
+          } else {
+            item.classList.remove('text-amber-400');
+            item.classList.add('text-slate-400');
+            if (dot) dot.classList.remove('active');
+          }
+        });
+      }
+
+      function updateActive() {
+        const atBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 80);
+        if (atBottom) {
+          setActive(lastId);
+        } else {
+          setActive(currentActiveId);
+        }
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            currentActiveId = entry.target.id;
+          }
+        });
+        updateActive();
+      }, {
+        rootMargin: '-20% 0px -50% 0px',
+        threshold: 0
+      });
+
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+
+      window.addEventListener('scroll', updateActive, { passive: true });
+      window.addEventListener('resize', updateActive, { passive: true });
+    })();
+
+    // Scroll-triggered Reveal Observer (buttery smooth entrance)
+    (function initCaseReveals() {
+      const items = document.querySelectorAll('.case-reveal');
+      if (!items.length) return;
+
+      if (!('IntersectionObserver' in window)) {
+        items.forEach(el => el.classList.add('is-visible'));
+        return;
+      }
+
+      const obs = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        root: null,
+        rootMargin: '0px 0px -40px 0px',
+        threshold: 0.05
+      });
+
+      items.forEach(el => obs.observe(el));
+
+      requestAnimationFrame(() => {
+        items.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight) {
+            el.classList.add('is-visible');
+          }
+        });
+      });
+    })();
+
+    // Smooth Page Transition Loader
+    (function() {
+      const tLoader = document.getElementById('case-transition-loader');
+      const tTitle = document.getElementById('case-loader-title');
+      const tSpinner = document.getElementById('case-loader-spinner');
+      const tGlow = document.getElementById('case-loader-glow');
+
+      document.addEventListener('click', (e) => {
+        const link = e.target.closest('a[href^="/"], a[href^="cases/"]');
+        if (!link) return;
+        if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || link.target === '_blank') return;
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('#')) return;
+
+        e.preventDefault();
+
+        let title = 'Загрузка...';
+        let ringColor = 'border-t-blue-500';
+        let glowColor = 'bg-blue-500/25';
+
+        if (href.includes('eus-b2b')) {
+          title = 'Открываем: ЕЮС B2B';
+          ringColor = 'border-t-blue-500';
+          glowColor = 'bg-blue-500/25';
+        } else if (href.includes('lootkeeper')) {
+          title = 'Открываем: Lootkeeper';
+          ringColor = 'border-t-amber-500';
+          glowColor = 'bg-amber-500/25';
+        } else if (href.includes('soundpower')) {
+          title = 'Открываем: SoundPower';
+          ringColor = 'border-t-purple-500';
+          glowColor = 'bg-purple-500/25';
+        } else if (href === '/' || href.includes('#cases') || href.startsWith('/#')) {
+          title = 'Возвращаемся на главную';
+          ringColor = 'border-t-purple-500';
+          glowColor = 'bg-purple-500/25';
+        }
+
+        if (tTitle) tTitle.textContent = title;
+        if (tSpinner) tSpinner.className = `w-10 h-10 rounded-full border-2 border-slate-200 dark:border-white/10 ${ringColor} animate-spin`;
+        if (tGlow) tGlow.className = `absolute w-5 h-5 rounded-full ${glowColor} blur-sm`;
+
+        if (tLoader) {
+          tLoader.classList.remove('opacity-0', 'pointer-events-none');
+          tLoader.classList.add('opacity-100', 'pointer-events-auto');
+        }
+
+        setTimeout(() => {
+          window.location.href = href;
+        }, 180);
+      });
+
+      window.addEventListener('pageshow', () => {
+        if (tLoader) {
+          tLoader.classList.add('opacity-0', 'pointer-events-none');
+          tLoader.classList.remove('opacity-100', 'pointer-events-auto');
+        }
+      });
+    })();
+  </script>
+
+  <!-- PAGE TRANSITION LOADER -->
+  <div id="case-transition-loader" class="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-white/80 dark:bg-[#08090d]/85 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-200 ease-out select-none">
+    <div class="relative flex items-center justify-center mb-3.5">
+      <div id="case-loader-spinner" class="w-10 h-10 rounded-full border-2 border-slate-200 dark:border-white/10 border-t-amber-500 animate-spin"></div>
+      <div id="case-loader-glow" class="absolute w-5 h-5 rounded-full bg-amber-500/25 blur-sm"></div>
+    </div>
+    <div class="flex items-center gap-1.5 text-slate-800 dark:text-slate-200 font-mono text-xs sm:text-sm font-semibold tracking-wider">
+      <span id="case-loader-title">Загрузка</span><span class="inline-block w-4 text-left animate-pulse">...</span>
+    </div>
+  </div>
+
+</body>
+</html>
